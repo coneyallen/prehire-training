@@ -62,7 +62,7 @@ function Player({ thumbnail, duration, onEnded }: { thumbnail: string; duration:
       <button onClick={toggle} className="group relative block aspect-[952/520] w-full" aria-label={playing ? "Pause" : "Play"}>
         <Img src={thumbnail} className="absolute inset-0 size-full object-cover" />
         {!playing && (
-          <span className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors group-hover:bg-black/20">
+          <span className="absolute inset-0 flex items-center justify-center transition-colors group-hover:bg-black/10">
             <span className="flex size-16 items-center justify-center rounded-full bg-[rgba(24,30,36,0.75)] text-white">
               {progress >= 1 ? <RotateCcw size={28} /> : <Play size={30} className="ml-1" fill="currentColor" />}
             </span>
