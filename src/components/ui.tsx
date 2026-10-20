@@ -74,13 +74,13 @@ function LanguageMenu() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex h-10 items-center gap-3 rounded-[8px] border border-[#f0f3f5] bg-white px-3 text-[14px] font-medium text-[#181e24] hover:bg-[#fafbfc]"
+        className="flex h-10 w-10 items-center justify-center gap-3 rounded-[8px] border border-[#f0f3f5] bg-white text-[14px] font-medium text-[#181e24] hover:bg-[#fafbfc] md:w-auto md:px-3"
         aria-haspopup="listbox"
         aria-expanded={open}
       >
         <Languages size={16} className="text-[#5b6671]" />
-        <span className="hidden min-w-[46px] text-left sm:inline">{language}</span>
-        <ChevronDown size={16} className="text-[#a7b1b9]" />
+        <span className="hidden min-w-[46px] text-left md:inline">{language}</span>
+        <ChevronDown size={16} className="hidden text-[#a7b1b9] md:block" />
       </button>
       {open && (
         <ul role="listbox" className="absolute right-0 z-20 mt-2 w-40 overflow-hidden rounded-[8px] border border-[#f0f3f5] bg-white py-1 shadow-lg">
@@ -130,12 +130,13 @@ function AvatarMenu() {
 
 export function Header({ title = "Pre-Hire Training", showLanguage = true }: { title?: string; showLanguage?: boolean }) {
   return (
-    <header className="sticky top-0 z-10 grid h-[60px] grid-cols-[1fr_auto] sm:grid-cols-[1fr_auto_1fr] items-center bg-white px-4 sm:px-8">
-      <Link href="/courses" aria-label="Home">
+    <header className="sticky top-0 z-10 grid h-[60px] grid-cols-[1fr_auto_1fr] items-center bg-white px-6 md:px-8">
+      {/* On phones only the logo mark shows (per the mobile design) */}
+      <Link href="/courses" aria-label="Home" className="block w-[30px] overflow-hidden md:w-[116px]">
         <Logo4insite />
       </Link>
-      <span className="hidden text-[16px] font-medium leading-[22px] text-[#181e24] sm:block">{title}</span>
-      <div className="flex items-center justify-end gap-4 sm:gap-6">
+      <span className="text-[16px] font-medium leading-[22px] text-[#181e24]">{title}</span>
+      <div className="flex items-center justify-end gap-4 md:gap-6">
         {showLanguage && <LanguageMenu />}
         <AvatarMenu />
       </div>
