@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Hide the Next.js button that shows in the corner during local development
+  devIndicators: false,
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
