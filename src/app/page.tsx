@@ -57,7 +57,7 @@ export default function LoginPage() {
             <Logo4insite className="h-[24px] w-[97px] desktop:h-[31px] desktop:w-[125px]" />
           </div>
 
-          <div className="flex flex-col gap-[clamp(12px,3dvh,32px)] text-center text-[#181e24] desktop:hidden">
+          <div className="flex flex-col gap-[clamp(12px,3dvh,32px)] text-[#181e24] desktop:hidden">
             <h1 className="font-display text-[32px] leading-[1.2]">
               Welcome to your
               <br />
@@ -115,10 +115,8 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="text-center text-[14px] leading-[22px] text-[#5b6671] desktop:hidden">
-            Questions? Please reach out to
-            <br />
-            your SBM Hiring Contact
+          <p className="whitespace-nowrap text-center text-[clamp(10px,3.2vw,14px)] leading-[22px] text-[#5b6671] desktop:hidden">
+            Questions? Please reach out to your SBM Hiring Contact
           </p>
         </form>
       </section>
