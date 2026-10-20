@@ -19,31 +19,31 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-white lg:h-screen lg:p-4">
-      {/* Brand panel */}
-      <section className="relative hidden w-[632px] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] lg:flex">
+    <main className="flex min-h-screen bg-white md:h-screen md:p-4">
+      {/* Brand panel: 30% of the screen from tablet up; text and photo scale with its width */}
+      <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] md:flex">
         <div className="pointer-events-none absolute left-[-2px] top-[-73px] flex size-[1224px] items-center justify-center">
           <Img src="/assets/brand-shape.svg" className="size-[866px] -rotate-45" />
         </div>
-        <div className="relative flex shrink-0 flex-col gap-14 px-[69px] pb-8 pt-[88px] text-white">
-          <h1 className="font-display text-[48px] leading-none">
+        <div className="relative flex shrink-0 flex-col gap-[clamp(20px,3.9vw,56px)] px-[clamp(20px,3.3vw,69px)] pb-8 pt-[clamp(32px,6vw,88px)] text-white">
+          <h1 className="font-display text-[clamp(22px,2.8vw,48px)] leading-none">
             Welcome to your
             <br />
             pre-hire training
           </h1>
-          <p className="text-[20px] leading-[40px] font-[family-name:var(--font-lato)]">
+          <p className="text-[clamp(14px,1.3vw,20px)] leading-[2] font-[family-name:var(--font-lato)]">
             Sign in to get started. Completing these courses helps move your hiring process forward.
           </p>
-          <p className="text-[20px] leading-[40px] font-[family-name:var(--font-lato)]">
+          <p className="text-[clamp(14px,1.3vw,20px)] leading-[2] font-[family-name:var(--font-lato)]">
             Questions? Please reach out to your SBM Hiring Contact
           </p>
         </div>
-        {/* Photo sits at the bottom center and shrinks on short screens so it never covers the text */}
-        <div className="relative mt-auto h-[469px] min-h-[200px] shrink">
+        {/* Photo sits at the bottom center and scales with the panel width */}
+        <div className="relative mt-auto min-h-0">
           <Img
             src="/assets/team.png"
             alt="SBM team members"
-            className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2"
+            className="relative left-1/2 block h-auto w-[112%] max-w-none -translate-x-1/2"
           />
         </div>
       </section>
@@ -56,8 +56,8 @@ export default function LoginPage() {
             <Logo4insite className="h-[31px] w-[125px]" />
           </div>
 
-          <div className="lg:hidden">
-            <p className="font-display text-[28px] leading-tight text-[#00509c]">Welcome to your pre-hire training</p>
+          <div className="md:hidden">
+            <p className="font-display text-[28px] leading-tight text-[#181e24]">Welcome to your pre-hire training</p>
             <p className="mt-3 text-[16px] text-[#5b6671]">
               Sign in to get started. Completing these courses helps move your hiring process forward.
             </p>
