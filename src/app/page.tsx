@@ -75,8 +75,7 @@ export default function LoginPage() {
             <input
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
-              placeholder="Jane"
-              autoComplete="username"
+              autoComplete="off"
               className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
             />
           </label>
@@ -86,7 +85,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
+              autoComplete="new-password"
               className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
             />
           </label>
