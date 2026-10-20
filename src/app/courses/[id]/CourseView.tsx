@@ -115,7 +115,7 @@ export default function CourseView({ id }: { id: string }) {
                   </span>
                   <div className="flex flex-col gap-1">
                     <p className="text-[16px] font-medium leading-[22px] text-[#181e24]">Credit earned</p>
-                    <p className="text-[12px] leading-[18px] text-[#5b6671]">Quiz passed · Added to transcript</p>
+                    <p className="text-[12px] leading-[18px] text-[#5b6671]">Quiz complete · Added to transcript</p>
                   </div>
                 </div>
               ) : (
@@ -195,10 +195,9 @@ export default function CourseView({ id }: { id: string }) {
 
       {quizOpen && (
         <QuizModal
-          courseId={course.id}
           courseTitle={course.title}
           onClose={() => setQuizOpen(false)}
-          onPass={() => completeCourse(course.id)}
+          onComplete={() => completeCourse(course.id)}
         />
       )}
     </>

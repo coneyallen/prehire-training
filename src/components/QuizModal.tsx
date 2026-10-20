@@ -5,22 +5,20 @@ import { Check, PartyPopper, X } from "lucide-react";
 import { Button } from "@/components/ui";
 import { getQuiz } from "@/lib/data";
 
-const PASS = 2; // correct answers needed out of 3
-
+// The quiz isn't graded: a wrong pick is marked, and the user keeps trying until they find the right answer.
 export function QuizModal({
-  courseId,
   courseTitle,
   onClose,
-  onPass,
+  onComplete,
 }: {
-  courseId: string;
   courseTitle: string;
   onClose: () => void;
-  onPass: () => void;
+  onComplete: () => void;
 }) {
-  const questions = getQuiz(courseId);
+  const questions = getQuiz();
   const [index, setIndex] = useState(0);
-  const [picks, setPicks] = useState<(number | null)[]>(() => questions.map(() => null));
+  const [wrong, setWrong] = useState<number[][]>(() => questions.map(() => []));
+  const [solved, setSolved] = useState<boolean[]>(() => questions.map(() => false));
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
@@ -30,22 +28,19 @@ export function QuizModal({
   }, [onClose]);
 
   const q = questions[index];
-  const pick = picks[index];
-  const score = picks.filter((p, i) => p === questions[i].correct).length;
-  const passed = score >= PASS;
+  const isLast = index === questions.length - 1;
+  const answered = (finished ? questions.length : index + (solved[index] ? 1 : 0)) / questions.length;
 
-  const next = () => {
-    if (index < questions.length - 1) setIndex(index + 1);
-    else {
-      setFinished(true);
-      if (score >= PASS) onPass();
-    }
+  const choose = (i: number) => {
+    if (solved[index]) return;
+    if (i === q.correct) setSolved((s) => s.map((v, j) => (j === index ? true : v)));
+    else setWrong((w) => w.map((v, j) => (j === index && !v.includes(i) ? [...v, i] : v)));
   };
 
-  const retry = () => {
-    setPicks(questions.map(() => null));
-    setIndex(0);
-    setFinished(false);
+  const next = () => {
+    if (!isLast) return setIndex(index + 1);
+    setFinished(true);
+    onComplete();
   };
 
   return (
@@ -63,65 +58,52 @@ export function QuizModal({
         <div className="flex items-start gap-6 sm:gap-[60px]">
           <div className="flex flex-1 flex-col gap-4">
             <p className="text-[16px] font-medium leading-[22px] text-black">Quiz: {courseTitle}</p>
-            <p className="text-[14px] leading-[22px] text-[#181e24]">
-              {finished ? "Results" : `Question ${index + 1} of ${questions.length}`}
-            </p>
-            <div className="h-1.5 overflow-hidden rounded-[8px] bg-[#dfe3e6]">
-              <div
-                className="h-full rounded-[8px] bg-[#0084ff] transition-[width] duration-300"
-                style={{ width: `${((finished ? questions.length : index + (pick !== null ? 1 : 0)) / questions.length) * 100}%` }}
-              />
-            </div>
+            {!finished && (
+              <p className="text-[14px] leading-[22px] text-[#181e24]">
+                Question {index + 1} of {questions.length}
+              </p>
+            )}
           </div>
           <button onClick={onClose} aria-label="Close quiz" className="text-[#a7b1b9] hover:text-[#5b6671]">
             <X size={20} />
           </button>
         </div>
+        <div className="-mt-6 h-1.5 overflow-hidden rounded-[8px] bg-[#dfe3e6] sm:-mt-11">
+          <div className="h-full rounded-[8px] bg-[#0084ff] transition-[width] duration-300" style={{ width: `${answered * 100}%` }} />
+        </div>
 
         {finished ? (
           <div className="flex flex-col items-center gap-4 text-center">
-            <div className={`flex size-16 items-center justify-center rounded-full ${passed ? "bg-[rgba(0,134,73,0.15)] text-[#008649]" : "bg-[rgba(204,0,82,0.12)] text-[#cc0052]"}`}>
-              {passed ? <PartyPopper size={30} /> : <X size={30} />}
+            <div className="flex size-16 items-center justify-center rounded-full bg-[rgba(0,134,73,0.15)] text-[#008649]">
+              <PartyPopper size={30} />
             </div>
-            <h2 className="font-display text-[20px] text-[#181e24]">{passed ? "Nice work — you passed!" : "Not quite"}</h2>
-            <p className="text-[14px] leading-[22px] text-[#5b6671]">
-              You got {score} of {questions.length} correct.{" "}
-              {passed ? "Credit for this course has been added to your transcript." : `You need ${PASS} correct to pass.`}
-            </p>
+            <h2 className="font-display text-[20px] text-[#181e24]">Nice job!</h2>
+            <p className="text-[14px] leading-[22px] text-[#5b6671]">You&apos;ve earned credit for this course.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
             <h2 className="font-display text-[20px] leading-tight text-[#181e24]">{q.question}</h2>
-            <div className="flex flex-col gap-2" role="radiogroup">
+            <div className="flex flex-col gap-2">
               {q.answers.map((a, i) => {
-                const answered = pick !== null;
-                const isCorrect = i === q.correct;
-                const isPicked = i === pick;
+                const isRight = solved[index] && i === q.correct;
+                const isWrong = wrong[index].includes(i);
                 return (
                   <button
                     key={a}
-                    role="radio"
-                    aria-checked={isPicked}
-                    disabled={answered}
-                    onClick={() => setPicks((p) => p.map((v, j) => (j === index ? i : v)))}
-                    className={`flex min-h-[54px] items-center justify-between gap-3 rounded-[4px] border px-3 py-2 text-left text-[14px] leading-[22px] tracking-[-0.28px] text-[#181e24] transition-colors ${
-                      answered
-                        ? isCorrect
-                          ? "border-[#008649]/30 bg-[rgba(0,134,73,0.05)]"
-                          : isPicked
-                            ? "border-[#cc0052]/30 bg-[rgba(204,0,82,0.05)]"
-                            : "border-[#f0f3f5] bg-white"
-                        : "border-[#f0f3f5] bg-white hover:border-[#0084ff] hover:bg-[#f7fbff]"
+                    onClick={() => choose(i)}
+                    disabled={solved[index] || isWrong}
+                    className={`flex min-h-[54px] items-center justify-between gap-3 rounded-[4px] border bg-white px-3 py-2 text-left text-[14px] leading-[22px] tracking-[-0.28px] text-[#181e24] transition-colors ${
+                      solved[index] || isWrong ? "border-[#f0f3f5]" : "border-[#f0f3f5] hover:border-[#0084ff] hover:bg-[#f7fbff]"
                     }`}
                   >
                     {a}
-                    {answered && isCorrect && (
-                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[rgba(0,134,73,0.15)] text-[#008649]">
+                    {isRight && (
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[rgba(0,134,73,0.15)] text-[#008649]" aria-label="Correct">
                         <Check size={14} />
                       </span>
                     )}
-                    {answered && isPicked && !isCorrect && (
-                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[rgba(204,0,82,0.15)] text-[#cc0052]">
+                    {isWrong && (
+                      <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[rgba(204,0,82,0.15)] text-[#cc0052]" aria-label="Incorrect">
                         <X size={14} />
                       </span>
                     )}
@@ -134,31 +116,16 @@ export function QuizModal({
 
         <div className="flex items-center justify-end gap-[18px]">
           {finished ? (
-            passed ? (
-              <Button onClick={onClose} className="h-10 px-4 text-[14px]">
-                Done
-              </Button>
-            ) : (
-              <>
-                <Button variant="ghost" onClick={onClose} className="h-10 px-4 text-[14px]">
-                  Rewatch video
-                </Button>
-                <Button onClick={retry} className="h-10 px-4 text-[14px]">
-                  Try again
-                </Button>
-              </>
-            )
+            <Button onClick={onClose} className="h-10 px-4 text-[14px]">
+              Done
+            </Button>
           ) : (
             <>
-              <Button
-                variant="ghost"
-                onClick={() => (index === 0 ? onClose() : setIndex(index - 1))}
-                className="h-10 px-4 text-[14px]"
-              >
+              <Button variant="ghost" onClick={() => (index === 0 ? onClose() : setIndex(index - 1))} className="h-10 px-4 text-[14px]">
                 Back
               </Button>
-              <Button onClick={next} disabled={pick === null} className="h-10 px-4 text-[14px]">
-                {index === questions.length - 1 ? "Finish" : "Next"}
+              <Button onClick={next} disabled={!solved[index]} className="h-10 px-4 text-[14px]">
+                {isLast ? "Submit" : "Next"}
               </Button>
             </>
           )}

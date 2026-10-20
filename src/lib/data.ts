@@ -174,74 +174,40 @@ export function findCourse(id: string) {
 
 export const languages = ["English", "Spanish", "中文", "हिन्दी", "Français"];
 
-const quizzes: Record<string, QuizQuestion[]> = {
-  "associate-incident-reporting": [
-    {
-      question: "You cut your hand on a broken soap dispenser. When should you report it?",
-      answers: [
-        "At the end of the week",
-        "Right away, to your supervisor",
-        "Only if it needs stitches",
-        "Only if someone saw it happen",
-      ],
-      correct: 1,
-    },
-    {
-      question: "A wet floor almost caused a fall, but no one was hurt. What should you do?",
-      answers: [
-        "Nothing, since no one got hurt",
-        "Mop it up and pretend nothing happened",
-        "Report it immediately as a near miss",
-        "Mention it during the next team meeting",
-      ],
-      correct: 2,
-    },
-    {
-      question: "Which detail is most important to include in an incident report?",
-      answers: [
-        "What happened, where and when",
-        "Who you think is to blame",
-        "How busy the shift was",
-        "Your opinion of the equipment brand",
-      ],
-      correct: 0,
-    },
-  ],
-};
-
-const defaultQuiz: QuizQuestion[] = [
+// Every course uses the same demo quiz.
+const quiz: QuizQuestion[] = [
   {
-    question: "You notice a hazard while cleaning. What is the first thing you should do?",
+    question: "When should you report a workplace incident?",
     answers: [
-      "Ignore it if it isn't in your area",
-      "Make the area safe and tell your supervisor",
-      "Post about it in the group chat",
-      "Wait until the end of your shift",
+      "At the end of the week, with your timesheet.",
+      "Right away, before the end of your shift.",
+      "Only if someone needed medical care.",
+      "Only if your supervisor saw it happen.",
     ],
     correct: 1,
   },
   {
-    question: "When should you wear the PPE listed for a task?",
+    question: "A wet floor almost caused a fall, but no one was hurt. What should you do?",
     answers: [
-      "Only when a supervisor is watching",
-      "Only for long tasks",
-      "Every time you do that task",
-      "Only if you feel unsafe",
+      "Nothing, since no one was injured.",
+      "Mop it up and forget about it.",
+      "Report it as a near miss so it can be prevented.",
+      "Mention it at next month's team meeting.",
     ],
     correct: 2,
   },
   {
-    question: "Who should you contact if you have questions about this course?",
+    question: "What belongs in an incident report?",
     answers: [
-      "Your SBM hiring contact or supervisor",
-      "A customer in the building",
-      "No one, just guess",
-      "Another new hire",
+      "Who was at fault and what their punishment should be.",
+      "Your opinion of the people involved.",
+      "Only the name of the person who was hurt.",
+      "What happened, when and where, and who was involved.",
     ],
-    correct: 0,
+    correct: 3,
   },
 ];
 
-export function getQuiz(courseId: string) {
-  return quizzes[courseId] ?? defaultQuiz;
+export function getQuiz() {
+  return quiz;
 }

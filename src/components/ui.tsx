@@ -45,7 +45,7 @@ export function Button({
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "locked" }) {
   const styles = {
-    primary: "bg-[#0084ff] text-[#fafbfc] hover:bg-[#0070d9] disabled:bg-[#a7b1b9]",
+    primary: "bg-[#0084ff] text-[#fafbfc] enabled:hover:bg-[#0070d9] disabled:bg-[#0084ff]/30",
     ghost: "bg-white text-[#0084ff] hover:bg-[#f0f7ff]",
     locked: "bg-[#f0f3f5] text-[#a7b1b9] cursor-not-allowed",
   }[variant];

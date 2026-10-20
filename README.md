@@ -8,7 +8,7 @@ A clickable prototype of the 4insite pre-hire training experience, built from th
 2. **Choose language** — pick a language; it's remembered in the header menu.
 3. **Course list** — overall progress, skill groups that collapse, and All / Remaining / Completed filters.
 4. **Course video** — press play to jump to the end of the video and unlock the quiz.
-5. **Quiz** — 3 questions with instant right/wrong feedback; 2 correct passes and marks the course complete.
+5. **Quiz** — 3 questions, not graded. A wrong pick is marked, and the user keeps trying until they choose the right answer. Finishing earns credit for the course.
 
 Progress is saved in the browser. Use the avatar menu → **Restart demo** to reset.
 
