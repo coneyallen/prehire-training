@@ -29,7 +29,7 @@ export function QuizModal({
 
   const q = questions[index];
   const isLast = index === questions.length - 1;
-  const answered = (finished ? questions.length : index + (solved[index] ? 1 : 0)) / questions.length;
+  const answered = (index + (solved[index] ? 1 : 0)) / questions.length;
 
   const choose = (i: number) => {
     if (solved[index]) return;
@@ -68,9 +68,11 @@ export function QuizModal({
             <X size={20} />
           </button>
         </div>
-        <div className="-mt-6 h-1.5 overflow-hidden rounded-[8px] bg-[#dfe3e6] sm:-mt-11">
-          <div className="h-full rounded-[8px] bg-[#0084ff] transition-[width] duration-300" style={{ width: `${answered * 100}%` }} />
-        </div>
+        {!finished && (
+          <div className="-mt-6 h-1.5 overflow-hidden rounded-[8px] bg-[#dfe3e6] sm:-mt-11">
+            <div className="h-full rounded-[8px] bg-[#0084ff] transition-[width] duration-300" style={{ width: `${answered * 100}%` }} />
+          </div>
+        )}
 
         {finished ? (
           <div className="flex flex-col items-center gap-4 text-center">
