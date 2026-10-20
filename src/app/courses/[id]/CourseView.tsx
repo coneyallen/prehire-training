@@ -86,10 +86,10 @@ function BackLink() {
 }
 
 function EarnCredit({ course, done, watched, onTakeQuiz }: { course: Course; done: boolean; watched: boolean; onTakeQuiz: () => void }) {
-  // Phones drop the icon bubble, per the mobile design.
+  // Phones drop the icon bubble, per the mobile design, except on "Credit earned".
   const icon = (tone: "done" | "ready" | "locked") => (
     <span
-      className={`hidden size-10 shrink-0 items-center justify-center rounded-full md:flex ${
+      className={`size-10 shrink-0 items-center justify-center rounded-full ${tone === "done" ? "flex" : "hidden md:flex"} ${
         tone === "done"
           ? "bg-[rgba(0,134,73,0.15)] text-[#008649]"
           : tone === "ready"
