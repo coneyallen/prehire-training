@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Login page switches from the mobile/tablet layout to the desktop split at 1100px */
+@theme {
+  --breakpoint-desktop: 68.75rem;
+}
+
 @theme inline {
   --font-sans: var(--font-roboto), system-ui, sans-serif;
   --font-display: var(--font-lato), system-ui, sans-serif;

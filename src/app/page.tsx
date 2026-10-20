@@ -19,9 +19,9 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-white lg:h-screen lg:p-4">
+    <main className="flex min-h-screen bg-white desktop:h-screen desktop:p-4">
       {/* Brand panel: desktop only, 30% of the screen; text and photo scale with its width */}
-      <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] lg:flex">
+      <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] desktop:flex">
         <div className="pointer-events-none absolute left-[-2px] top-[-73px] flex size-[1224px] items-center justify-center">
           <Img src="/assets/brand-shape.svg" className="size-[866px] -rotate-45" />
         </div>
@@ -48,15 +48,15 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* Sign-in form. Below 1024px (tablet and phone) this follows the mobile design. */}
-      <section className="flex flex-1 items-start justify-center overflow-y-auto px-7 pb-12 pt-[60px] lg:items-center lg:px-6 lg:py-12">
+      {/* Sign-in form. Below 1100px (tablet and phone) this follows the mobile design. */}
+      <section className="flex flex-1 items-start justify-center overflow-y-auto px-7 pb-12 pt-[60px] desktop:items-center desktop:px-6 desktop:py-12">
         <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[47px]">
-          <div className="mb-[13px] flex items-center justify-center gap-[19px] lg:mb-0 lg:justify-start lg:gap-6">
-            <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[21px] w-[69px] lg:h-[27px] lg:w-[88px]" />
-            <Logo4insite className="h-[24px] w-[97px] lg:h-[31px] lg:w-[125px]" />
+          <div className="mb-[13px] flex items-center justify-center gap-[19px] desktop:mb-0 desktop:justify-start desktop:gap-6">
+            <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[21px] w-[69px] desktop:h-[27px] desktop:w-[88px]" />
+            <Logo4insite className="h-[24px] w-[97px] desktop:h-[31px] desktop:w-[125px]" />
           </div>
 
-          <div className="flex flex-col gap-8 text-[#181e24] lg:hidden">
+          <div className="flex flex-col gap-8 text-[#181e24] desktop:hidden">
             <h1 className="font-display text-[32px] leading-[1.2]">
               Welcome to your
               <br />
@@ -67,7 +67,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <h2 className="hidden font-display text-[48px] leading-none text-black lg:block">Login</h2>
+          <h2 className="hidden font-display text-[48px] leading-none text-black desktop:block">Login</h2>
 
           <label className="flex flex-col gap-2">
             <span className="text-[12px] leading-[18px] text-[#5b6671]">User ID</span>
@@ -76,7 +76,7 @@ export default function LoginPage() {
               onChange={(e) => setUserId(e.target.value)}
               placeholder="Jane"
               autoComplete="username"
-              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 lg:h-10"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
             />
           </label>
           <label className="flex flex-col gap-2">
@@ -86,11 +86,11 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
-              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 lg:h-10"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
             />
           </label>
 
-          <div className="flex flex-col gap-[47px] lg:gap-6">
+          <div className="flex flex-col gap-[47px] desktop:gap-6">
             <Button type="submit" className="h-12 w-full text-[16px] tracking-[-0.32px]">
               Sign In
             </Button>
@@ -98,7 +98,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setHelp((h) => !h)}
-                className="self-center text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] underline lg:self-start"
+                className="self-center text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] underline desktop:self-start"
               >
                 Trouble Logging In?
               </button>
@@ -110,7 +110,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="text-center text-[14px] leading-[22px] text-[#5b6671] lg:hidden">
+          <p className="text-center text-[14px] leading-[22px] text-[#5b6671] desktop:hidden">
             Questions? Please reach out to
             <br />
             your SBM Hiring Contact
