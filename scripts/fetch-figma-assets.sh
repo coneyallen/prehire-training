@@ -14,7 +14,6 @@ get() { curl -fsSL -o "$2" "$1" && echo "ok   $2" || echo "FAIL $2"; }
 
 # Login screen
 get "$LOGIN/5d9d0.svg" sbm-logo.svg
-get "$LOGIN/86331.png" login-texture.png
 get "$LOGIN/608d1.png" team.png
 get "$LOGIN/c4efe.svg" brand-shape.svg
 

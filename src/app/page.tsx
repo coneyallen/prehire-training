@@ -19,17 +19,13 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-white lg:p-4">
+    <main className="flex min-h-screen bg-white lg:h-screen lg:p-4">
       {/* Brand panel */}
-      <section className="relative hidden w-[632px] shrink-0 overflow-hidden rounded-[16px] bg-[#00509c] lg:block">
+      <section className="relative hidden w-[632px] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] lg:flex">
         <div className="pointer-events-none absolute left-[-2px] top-[-73px] flex size-[1224px] items-center justify-center">
           <Img src="/assets/brand-shape.svg" className="size-[866px] -rotate-45" />
         </div>
-        <Img
-          src="/assets/login-texture.png"
-          className="pointer-events-none absolute inset-0 size-full object-cover opacity-[0.07] mix-blend-plus-lighter"
-        />
-        <div className="relative flex flex-col gap-14 px-[69px] pt-[88px] text-white">
+        <div className="relative flex shrink-0 flex-col gap-14 px-[69px] pb-8 pt-[88px] text-white">
           <h1 className="font-display text-[48px] leading-none">
             Welcome to your
             <br />
@@ -42,11 +38,18 @@ export default function LoginPage() {
             Questions? Please reach out to your SBM Hiring Contact
           </p>
         </div>
-        <Img src="/assets/team.png" alt="SBM team members" className="absolute left-[-40px] top-[502px] h-[469px] w-[705px] object-cover" />
+        {/* Photo sits at the bottom center and shrinks on short screens so it never covers the text */}
+        <div className="relative mt-auto h-[469px] min-h-[200px] shrink">
+          <Img
+            src="/assets/team.png"
+            alt="SBM team members"
+            className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2"
+          />
+        </div>
       </section>
 
       {/* Sign-in form */}
-      <section className="flex flex-1 items-center justify-center px-6 py-12">
+      <section className="flex flex-1 items-center justify-center overflow-y-auto px-6 py-12">
         <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[47px]">
           <div className="flex items-center gap-6">
             <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[27px] w-[88px]" />
