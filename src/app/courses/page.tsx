@@ -35,19 +35,34 @@ function CourseCard({ course, done }: { course: Course; done: boolean }) {
   );
 }
 
-function SkillGroup({ skill, filter, completed }: { skill: Skill; filter: Filter; completed: string[] }) {
-  const [open, setOpen] = useState(true);
-  const doneCount = skill.courses.filter((c) => completed.includes(c.id)).length;
-  const visible = skill.courses.filter((c) => {
+const visibleCourses = (skill: Skill, filter: Filter, completed: string[]) =>
+  skill.courses.filter((c) => {
     const done = completed.includes(c.id);
     return filter === "All" || (filter === "Completed" ? done : !done);
   });
-  if (visible.length === 0) return null;
+
+function SkillGroup({
+  skill,
+  filter,
+  completed,
+  open,
+  onToggle,
+  className,
+}: {
+  skill: Skill;
+  filter: Filter;
+  completed: string[];
+  open: boolean;
+  onToggle: () => void;
+  className: string;
+}) {
+  const doneCount = skill.courses.filter((c) => completed.includes(c.id)).length;
+  const visible = visibleCourses(skill, filter, completed);
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className={`flex flex-col gap-4 ${className}`}>
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={onToggle}
         aria-expanded={open}
         className={`flex items-center gap-4 rounded-[12px] px-4 py-6 text-left md:gap-6 md:p-6 ${skill.tint}`}
       >
@@ -75,6 +90,8 @@ function SkillGroup({ skill, filter, completed }: { skill: Skill; filter: Filter
 export default function CoursesPage() {
   const { name, completed } = useStore();
   const [filter, setFilter] = useState<Filter>("All");
+  const [collapsed, setCollapsed] = useState<string[]>([]);
+  const shownSkills = skills.filter((s) => visibleCourses(s, filter, completed).length > 0);
   const doneTotal = allCourses.filter((c) => completed.includes(c.id)).length;
 
   return (
@@ -135,9 +152,18 @@ export default function CoursesPage() {
           ))}
         </div>
 
-        <div className="mt-4 flex flex-col gap-10 md:mt-6">
-          {skills.map((s) => (
-            <SkillGroup key={s.id} skill={s} filter={filter} completed={completed} />
+        {/* After an expanded skill there is a 40px gap; after a collapsed one, the normal 16px card gap. */}
+        <div className="mt-4 flex flex-col md:mt-6">
+          {shownSkills.map((s, i) => (
+            <SkillGroup
+              key={s.id}
+              skill={s}
+              filter={filter}
+              completed={completed}
+              open={!collapsed.includes(s.id)}
+              onToggle={() => setCollapsed((c) => (c.includes(s.id) ? c.filter((id) => id !== s.id) : [...c, s.id]))}
+              className={i === 0 ? "" : collapsed.includes(shownSkills[i - 1].id) ? "mt-4" : "mt-10"}
+            />
           ))}
         </div>
       </main>
