@@ -180,7 +180,7 @@ const quiz: QuizQuestion[] = [
     question: "When should you report a workplace incident?",
     answers: [
       "At the end of the week, with your timesheet.",
-      "Right away, before the end of your shift.",
+      "It should be reported immediately.",
       "Only if someone needed medical care.",
       "Only if your supervisor saw it happen.",
     ],
