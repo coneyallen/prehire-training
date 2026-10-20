@@ -19,7 +19,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-white desktop:h-screen desktop:p-4">
+    <main className="flex h-dvh overflow-hidden bg-white desktop:p-4">
       {/* Brand panel: desktop only, 30% of the screen; text and photo scale with its width */}
       <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] desktop:flex">
         <div className="pointer-events-none absolute left-[-2px] top-[-73px] flex size-[1224px] items-center justify-center">
@@ -49,14 +49,15 @@ export default function LoginPage() {
       </section>
 
       {/* Sign-in form. Below 1100px (tablet and phone) this follows the mobile design. */}
-      <section className="flex flex-1 items-start justify-center overflow-y-auto px-7 pb-12 pt-[60px] desktop:items-center desktop:px-6 desktop:py-12">
-        <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[47px]">
-          <div className="mb-[13px] flex items-center justify-center gap-[19px] desktop:mb-0 desktop:justify-start desktop:gap-6">
+      <section className="flex flex-1 items-center justify-center px-7 py-6 desktop:px-6 desktop:py-12">
+        {/* Mobile/tablet: centered and sized to fit the screen with no scrolling; gaps shrink on short screens */}
+        <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[clamp(10px,calc((100dvh_-_488px)/7),47px)] desktop:gap-[47px]">
+          <div className="flex items-center justify-center gap-[19px] desktop:justify-start desktop:gap-6">
             <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[21px] w-[69px] desktop:h-[27px] desktop:w-[88px]" />
             <Logo4insite className="h-[24px] w-[97px] desktop:h-[31px] desktop:w-[125px]" />
           </div>
 
-          <div className="flex flex-col gap-8 text-[#181e24] desktop:hidden">
+          <div className="flex flex-col gap-[clamp(12px,3dvh,32px)] text-center text-[#181e24] desktop:hidden">
             <h1 className="font-display text-[32px] leading-[1.2]">
               Welcome to your
               <br />
@@ -90,20 +91,25 @@ export default function LoginPage() {
             />
           </label>
 
-          <div className="flex flex-col gap-[47px] desktop:gap-6">
+          <div className="flex flex-col gap-[clamp(10px,calc((100dvh_-_488px)/7),47px)] desktop:gap-6">
             <Button type="submit" className="h-12 w-full text-[16px] tracking-[-0.32px]">
               Sign In
             </Button>
-            <div className="flex flex-col gap-6">
+            {/* Help opens as a pop-up so it never changes the layout or causes scrolling */}
+            <div className="relative flex flex-col">
               <button
                 type="button"
                 onClick={() => setHelp((h) => !h)}
+                aria-expanded={help}
                 className="self-center text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] underline desktop:self-start"
               >
                 Trouble Logging In?
               </button>
               {help && (
-                <p className="rounded-[4px] bg-[#eff6ff] p-3 text-[14px] text-[#181e24]">
+                <p
+                  role="status"
+                  className="absolute left-1/2 top-full z-10 mt-2 w-[min(100%,340px)] -translate-x-1/2 rounded-[4px] bg-[#eff6ff] p-3 text-center text-[14px] text-[#181e24] shadow-md desktop:left-0 desktop:translate-x-0 desktop:text-left"
+                >
                   This is a demo — any User ID and password will work. Leave them blank to sign in as Jane.
                 </p>
               )}
