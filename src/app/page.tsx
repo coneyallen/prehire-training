@@ -19,9 +19,9 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen bg-white md:h-screen md:p-4">
-      {/* Brand panel: 30% of the screen from tablet up; text and photo scale with its width */}
-      <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] md:flex">
+    <main className="flex min-h-screen bg-white lg:h-screen lg:p-4">
+      {/* Brand panel: desktop only, 30% of the screen; text and photo scale with its width */}
+      <section className="relative hidden w-[30%] shrink-0 flex-col overflow-hidden rounded-[16px] bg-[#00509c] lg:flex">
         <div className="pointer-events-none absolute left-[-2px] top-[-73px] flex size-[1224px] items-center justify-center">
           <Img src="/assets/brand-shape.svg" className="size-[866px] -rotate-45" />
         </div>
@@ -48,22 +48,26 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* Sign-in form */}
-      <section className="flex flex-1 items-center justify-center overflow-y-auto px-6 py-12">
+      {/* Sign-in form. Below 1024px (tablet and phone) this follows the mobile design. */}
+      <section className="flex flex-1 items-start justify-center overflow-y-auto px-7 pb-12 pt-[60px] lg:items-center lg:px-6 lg:py-12">
         <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[47px]">
-          <div className="flex items-center gap-6">
-            <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[27px] w-[88px]" />
-            <Logo4insite className="h-[31px] w-[125px]" />
+          <div className="mb-[13px] flex items-center justify-center gap-[19px] lg:mb-0 lg:justify-start lg:gap-6">
+            <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[21px] w-[69px] lg:h-[27px] lg:w-[88px]" />
+            <Logo4insite className="h-[24px] w-[97px] lg:h-[31px] lg:w-[125px]" />
           </div>
 
-          <div className="md:hidden">
-            <p className="font-display text-[28px] leading-tight text-[#181e24]">Welcome to your pre-hire training</p>
-            <p className="mt-3 text-[16px] text-[#5b6671]">
+          <div className="flex flex-col gap-8 text-[#181e24] lg:hidden">
+            <h1 className="font-display text-[32px] leading-[1.2]">
+              Welcome to your
+              <br />
+              pre-hire training
+            </h1>
+            <p className="text-[16px] leading-6">
               Sign in to get started. Completing these courses helps move your hiring process forward.
             </p>
           </div>
 
-          <h2 className="font-display text-[48px] leading-none text-black">Login</h2>
+          <h2 className="hidden font-display text-[48px] leading-none text-black lg:block">Login</h2>
 
           <label className="flex flex-col gap-2">
             <span className="text-[12px] leading-[18px] text-[#5b6671]">User ID</span>
@@ -72,7 +76,7 @@ export default function LoginPage() {
               onChange={(e) => setUserId(e.target.value)}
               placeholder="Jane"
               autoComplete="username"
-              className="h-10 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 lg:h-10"
             />
           </label>
           <label className="flex flex-col gap-2">
@@ -82,27 +86,35 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
-              className="h-10 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 lg:h-10"
             />
           </label>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-[47px] lg:gap-6">
             <Button type="submit" className="h-12 w-full text-[16px] tracking-[-0.32px]">
               Sign In
             </Button>
-            <button
-              type="button"
-              onClick={() => setHelp((h) => !h)}
-              className="self-start text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] underline"
-            >
-              Trouble Logging In?
-            </button>
-            {help && (
-              <p className="rounded-[4px] bg-[#eff6ff] p-3 text-[14px] text-[#181e24]">
-                This is a demo — any User ID and password will work. Leave them blank to sign in as Jane.
-              </p>
-            )}
+            <div className="flex flex-col gap-6">
+              <button
+                type="button"
+                onClick={() => setHelp((h) => !h)}
+                className="self-center text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] underline lg:self-start"
+              >
+                Trouble Logging In?
+              </button>
+              {help && (
+                <p className="rounded-[4px] bg-[#eff6ff] p-3 text-[14px] text-[#181e24]">
+                  This is a demo — any User ID and password will work. Leave them blank to sign in as Jane.
+                </p>
+              )}
+            </div>
           </div>
+
+          <p className="text-center text-[14px] leading-[22px] text-[#5b6671] lg:hidden">
+            Questions? Please reach out to
+            <br />
+            your SBM Hiring Contact
+          </p>
         </form>
       </section>
     </main>
