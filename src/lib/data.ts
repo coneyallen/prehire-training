@@ -172,7 +172,7 @@ export function findCourse(id: string) {
   return null;
 }
 
-export const languages = ["English", "Spanish", "中文", "हिन्दी", "Français"];
+export const languages = ["English", "Spanish", "中文", "हिन्दी", "Français", "العربية", "বাংলা", "Português", "Русский"];
 
 // Every course uses the same demo quiz.
 const quiz: QuizQuestion[] = [

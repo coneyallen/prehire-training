@@ -10,6 +10,21 @@
   --font-display: var(--font-lato), system-ui, sans-serif;
 }
 
+/*
+  Figma trims every text box to the top of the capital letters and the baseline,
+  so the gaps in the design are measured between letters, not line boxes.
+  Trimming the same way here makes spacing values from Figma match on screen.
+*/
+@layer base {
+  h1,
+  h2,
+  h3,
+  p,
+  .trim {
+    text-box: trim-both cap alphabetic;
+  }
+}
+
 body {
   background: #f0f3f5;
   color: #181e24;

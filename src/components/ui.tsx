@@ -128,14 +128,25 @@ function AvatarMenu() {
   );
 }
 
-export function Header({ title = "Pre-Hire Training", showLanguage = true }: { title?: string; showLanguage?: boolean }) {
+export function Header({
+  title = "Pre-Hire Training",
+  mobileTitle = title,
+  showLanguage = true,
+}: {
+  title?: string;
+  mobileTitle?: string;
+  showLanguage?: boolean;
+}) {
   return (
     <header className="sticky top-0 z-10 grid h-[60px] grid-cols-[1fr_auto_1fr] items-center bg-white px-6 md:px-8">
       {/* On phones only the logo mark shows (per the mobile design) */}
       <Link href="/courses" aria-label="Home" className="block w-[30px] overflow-hidden md:w-[116px]">
         <Logo4insite />
       </Link>
-      <span className="text-[16px] font-medium leading-[22px] text-[#181e24]">{title}</span>
+      <span className="text-[16px] font-medium leading-[22px] text-[#181e24]">
+        <span className="md:hidden">{mobileTitle}</span>
+        <span className="hidden md:inline">{title}</span>
+      </span>
       <div className="flex items-center justify-end gap-4 md:gap-6">
         {showLanguage && <LanguageMenu />}
         <AvatarMenu />

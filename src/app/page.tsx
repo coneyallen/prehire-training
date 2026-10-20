@@ -26,7 +26,7 @@ export default function LoginPage() {
           <Img src="/assets/brand-shape.svg" className="size-[866px] -rotate-45" />
         </div>
         <div className="relative flex shrink-0 flex-col gap-[clamp(20px,3.9vw,56px)] px-[clamp(20px,3.3vw,69px)] pb-8 pt-[clamp(32px,6vw,88px)] text-white">
-          <h1 className="font-display text-[clamp(22px,2.8vw,48px)] leading-none">
+          <h1 className="font-display text-[clamp(22px,2.8vw,48px)] leading-[1.2]">
             Welcome to your
             <br />
             pre-hire training
@@ -52,7 +52,7 @@ export default function LoginPage() {
       <section className="flex flex-1 items-center justify-center px-7 py-6 desktop:px-6 desktop:py-12">
         {/* Mobile/tablet: centered and sized to fit the screen with no scrolling; gaps shrink on short screens */}
         <form onSubmit={submit} className="flex w-full max-w-[472px] flex-col gap-[clamp(10px,calc((100dvh_-_488px)/7),47px)] desktop:gap-[47px]">
-          <div className="flex items-center justify-center gap-[19px] desktop:justify-start desktop:gap-6">
+          <div className="mb-[clamp(0px,calc((100dvh_-_760px)/8),13px)] flex items-center justify-center gap-[19px] desktop:mb-0 desktop:justify-start desktop:gap-6">
             <Img src="/assets/sbm-logo.svg" alt="SBM" className="h-[21px] w-[69px] desktop:h-[27px] desktop:w-[88px]" />
             <Logo4insite className="h-[24px] w-[97px] desktop:h-[31px] desktop:w-[125px]" />
           </div>
@@ -71,22 +71,22 @@ export default function LoginPage() {
           <h2 className="hidden font-display text-[48px] leading-none text-black desktop:block">Login</h2>
 
           <label className="flex flex-col gap-2">
-            <span className="text-[12px] leading-[18px] text-[#5b6671]">User ID</span>
+            <span className="trim text-[12px] leading-[18px] text-[#5b6671]">User ID</span>
             <input
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               autoComplete="off"
-              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20"
             />
           </label>
           <label className="flex flex-col gap-2">
-            <span className="text-[12px] leading-[18px] text-[#5b6671]">Password</span>
+            <span className="trim text-[12px] leading-[18px] text-[#5b6671]">Password</span>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
-              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20 desktop:h-10"
+              className="h-12 rounded-[4px] border border-[#d0d5d9] bg-[#fafbfc] px-3 text-[16px] outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/20"
             />
           </label>
 
