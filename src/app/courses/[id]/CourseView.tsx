@@ -20,16 +20,13 @@ import { QuizModal } from "@/components/QuizModal";
 import { findCourse } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
-// The demo "video" plays back in this many real seconds so reviewers don't wait 15 minutes.
-const DEMO_SECONDS = 12;
-
 const toSeconds = (d: string) => d.split(":").reduce((acc, n) => acc * 60 + Number(n), 0);
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
 function Player({ thumbnail, duration, onEnded }: { thumbnail: string; duration: string; onEnded: () => void }) {
   const total = toSeconds(duration);
   const [progress, setProgress] = useState(0); // 0..1
-  const [playing, setPlaying] = useState(false);
+  const playing = false;
   const [cc, setCc] = useState(true);
   const endedRef = useRef(onEnded);
   useEffect(() => {
@@ -37,40 +34,21 @@ function Player({ thumbnail, duration, onEnded }: { thumbnail: string; duration:
   });
 
   useEffect(() => {
-    if (!playing) return;
-    const id = setInterval(() => {
-      setProgress((p) => Math.min(1, p + 0.1 / DEMO_SECONDS));
-    }, 100);
-    return () => clearInterval(id);
-  }, [playing]);
-
-  useEffect(() => {
-    if (progress >= 1) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- stop playback when the demo video ends
-      setPlaying(false);
-      endedRef.current();
-    }
+    if (progress >= 1) endedRef.current();
   }, [progress]);
 
-  const toggle = () => {
-    if (progress >= 1) setProgress(0);
-    setPlaying((p) => !p);
-  };
+  // For the demo, pressing play skips straight to the end and unlocks the quiz.
+  const toggle = () => setProgress(1);
 
   return (
     <div className="overflow-hidden rounded-t-[4px] bg-[#e8e8e8]">
       <button onClick={toggle} className="group relative block aspect-[952/520] w-full" aria-label={playing ? "Pause" : "Play"}>
         <Img src={thumbnail} className="absolute inset-0 size-full object-cover" />
-        {!playing && (
+        {progress < 1 && (
           <span className="absolute inset-0 flex items-center justify-center transition-colors group-hover:bg-black/10">
             <span className="flex size-16 items-center justify-center rounded-full bg-[rgba(24,30,36,0.75)] text-white">
-              {progress >= 1 ? <RotateCcw size={28} /> : <Play size={30} className="ml-1" fill="currentColor" />}
+              <Play size={30} className="ml-1" fill="currentColor" />
             </span>
-          </span>
-        )}
-        {cc && playing && (
-          <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded bg-black/70 px-3 py-1 text-[14px] text-white">
-            Demo video — playback is sped up for this prototype
           </span>
         )}
       </button>
