@@ -21,7 +21,6 @@ get "$LOGIN/c4efe.svg" brand-shape.svg
 get "$LANG/9a253.svg" 4insite-logo-word.svg
 get "$LANG/529ad.svg" 4insite-logo-dot.svg
 get "$LANG/d5c92.svg" 4insite-logo-mark.svg
-get "$LANG/7383d.png" avatar.png
 get "$LANG/f37fe.svg" translate.svg
 
 # Course list

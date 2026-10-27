@@ -127,7 +127,7 @@ function AvatarMenu() {
   return (
     <div className="relative">
       <button onClick={() => setOpen((o) => !o)} aria-label="Account menu" className="block rounded-full">
-        <Img src="/assets/avatar.png" className="size-9 rounded-full" />
+        <Img src="/assets/profile/photo.png" className="size-9 rounded-full object-cover" />
       </button>
       {open && (
         <div className="absolute right-0 z-20 mt-2 w-48 rounded-[8px] border border-[#f0f3f5] bg-white py-1 shadow-lg">

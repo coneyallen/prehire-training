@@ -14,6 +14,9 @@ import { useStore } from "@/lib/store";
 
 const a = (name: string) => `/assets/profile/${name}.png`;
 
+// Jane is the demo user; the welcome banner uses her first name only.
+const lastName = "Ramirez";
+
 const aboutMe = [
   "I speak Spanish and English and I would like to learn French.",
   "My favorite movie is Ghost.",
@@ -69,7 +72,7 @@ function ProfileHeader({ name, language }: { name: string; language: string }) {
   return (
     <div className="relative flex flex-col px-4 md:flex-row md:gap-8 md:px-0">
       <div className="relative -mt-[60px] w-fit shrink-0 md:-mt-8">
-        <Img src="/assets/avatar.png" alt={name} className="size-[120px] rounded-full object-cover md:size-[187px]" />
+        <Img src="/assets/profile/photo.png" alt={`${name} ${lastName}`} className="size-[120px] rounded-full object-cover md:size-[187px]" />
         <button
           aria-label="Change profile picture"
           className="absolute left-[93px] top-[9px] flex size-[30px] items-center justify-center rounded-full bg-[#fafbfc] text-[#181e24] shadow-[0_4px_4px_rgba(24,30,36,0.04)] hover:bg-white md:left-[145px] md:top-[14.5px]"
@@ -81,7 +84,7 @@ function ProfileHeader({ name, language }: { name: string; language: string }) {
       <div className="mt-6 flex min-w-0 flex-1 flex-col gap-6 md:mt-0 md:flex-row md:items-start md:justify-between md:pt-[25.5px]">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <h2 className="font-display text-[28px] leading-[1.2] text-[#181e24] md:text-[32px]">{name}</h2>
+            <h2 className="font-display text-[28px] leading-[1.2] text-[#181e24] md:text-[32px]">{name} {lastName}</h2>
             <div className="flex flex-wrap items-center gap-[6px] text-[16px] font-medium leading-[22px] text-[#181e24]">
               <p>Custodian</p>
               <span aria-hidden className="size-[3px] rounded-full bg-[#181e24]" />
