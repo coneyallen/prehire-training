@@ -147,7 +147,7 @@ function CourseCard({ course, done }: { course: Course; done: boolean }) {
     >
       <div className="relative h-full w-[116px] shrink-0 overflow-hidden md:w-[208px]">
         {course.illustration ? (
-          <div className="size-full bg-[#f3f2fb] p-2">
+          <div className="size-full bg-[#e8e8e8] p-2">
             <Img src={course.thumbnail} className="size-full object-contain transition-transform duration-300 group-hover:scale-105" />
           </div>
         ) : (

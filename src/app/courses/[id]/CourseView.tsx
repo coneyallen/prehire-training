@@ -34,7 +34,7 @@ function Player({ thumbnail, illustration, duration, onEnded }: { thumbnail: str
     <div className="overflow-hidden bg-[#e8e8e8] md:rounded-t-[4px]">
       <button onClick={play} className="group relative block aspect-[952/520] w-full" aria-label="Play">
         {illustration ? (
-          <div className="absolute inset-0 bg-[#f3f2fb] p-[8%]">
+          <div className="absolute inset-0 bg-[#e8e8e8] p-[8%]">
             <Img src={thumbnail} className="size-full object-contain" />
           </div>
         ) : (
