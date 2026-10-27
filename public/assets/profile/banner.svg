@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 280" preserveAspectRatio="xMidYMid slice">
+  <!-- Neutral profile banner: soft sky, clouds, hills and a distant skyline.
+       The page tints it blue (mix-blend-luminosity over #0084ff). -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b8cbf2"/>
+      <stop offset="0.6" stop-color="#e3e3f6"/>
+      <stop offset="1" stop-color="#f8e4ea"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.55" stop-color="#fff1e2"/>
+      <stop offset="1" stop-color="#fff1e2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9d4f1"/>
+      <stop offset="1" stop-color="#dde2f5"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a9bbe8"/>
+      <stop offset="1" stop-color="#c3cfef"/>
+    </linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8299d8"/>
+      <stop offset="1" stop-color="#9aaee2"/>
+    </linearGradient>
+    <linearGradient id="front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6c84cc"/>
+      <stop offset="1" stop-color="#7f95d6"/>
+    </linearGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="3.2" fill="#fff" fill-opacity="0.75"/>
+    </pattern>
+    <g id="cloud">
+      <ellipse cx="0" cy="0" rx="60" ry="14"/>
+      <circle cx="-22" cy="-12" r="20"/>
+      <circle cx="8" cy="-22" r="27"/>
+      <circle cx="36" cy="-8" r="17"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="280" fill="url(#sky)"/>
+
+  <!-- Large faint circles -->
+  <circle cx="300" cy="40" r="170" fill="#fff" fill-opacity="0.18"/>
+  <circle cx="1390" cy="70" r="150" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="22"/>
+  <circle cx="1240" cy="-60" r="190" fill="#fff" fill-opacity="0.12"/>
+
+  <!-- Dot grids -->
+  <rect x="58" y="16" width="88" height="88" fill="url(#dots)"/>
+  <rect x="1470" y="150" width="88" height="66" fill="url(#dots)"/>
+
+  <!-- Sun -->
+  <circle cx="930" cy="190" r="70" fill="url(#sun)"/>
+  <circle cx="930" cy="190" r="34" fill="#fff8ee"/>
+
+  <!-- Clouds -->
+  <g fill="#fff" fill-opacity="0.85">
+    <use href="#cloud" transform="translate(410 120) scale(1.2)"/>
+    <use href="#cloud" transform="translate(1080 82) scale(1.5)"/>
+    <use href="#cloud" transform="translate(760 64) scale(0.8)"/>
+    <use href="#cloud" transform="translate(1500 116) scale(0.9)"/>
+    <use href="#cloud" transform="translate(150 168) scale(0.7)"/>
+  </g>
+  <g fill="#fff" fill-opacity="0.5">
+    <use href="#cloud" transform="translate(620 160) scale(0.9)"/>
+    <use href="#cloud" transform="translate(1270 170) scale(0.8)"/>
+  </g>
+
+  <!-- Far mountains -->
+  <path fill="url(#far)" d="M0 190 C90 150 170 140 250 165 C330 120 420 110 520 160 C600 140 660 150 720 175 C800 150 880 160 960 185 C1060 140 1150 120 1250 160 C1340 130 1450 120 1600 170 L1600 280 L0 280 Z"/>
+
+  <!-- Distant skyline -->
+  <g fill="#b6c3ea">
+    <rect x="700" y="182" width="16" height="40"/>
+    <rect x="720" y="170" width="12" height="52"/>
+    <rect x="736" y="190" width="18" height="32"/>
+    <rect x="758" y="160" width="14" height="62"/>
+    <rect x="776" y="178" width="20" height="44"/>
+    <rect x="800" y="150" width="12" height="72"/>
+    <rect x="816" y="172" width="16" height="50"/>
+    <rect x="836" y="186" width="22" height="36"/>
+    <rect x="862" y="166" width="12" height="56"/>
+    <rect x="878" y="192" width="18" height="30"/>
+    <rect x="990" y="188" width="14" height="34"/>
+    <rect x="1008" y="174" width="12" height="48"/>
+    <rect x="1024" y="194" width="20" height="28"/>
+  </g>
+
+  <!-- Mid hills -->
+  <path fill="url(#mid)" d="M0 210 C120 175 230 170 330 200 C430 230 520 205 620 200 C720 195 780 215 880 214 C990 212 1060 190 1170 196 C1290 203 1380 180 1480 176 C1540 174 1580 182 1600 188 L1600 280 L0 280 Z"/>
+
+  <!-- Near hills -->
+  <path fill="url(#near)" d="M0 236 C140 200 260 214 380 236 C480 254 600 246 720 240 C860 233 960 252 1080 244 C1200 236 1300 214 1420 206 C1500 201 1560 206 1600 212 L1600 280 L0 280 Z"/>
+
+  <!-- Foreground curves -->
+  <path fill="url(#front)" d="M0 250 C120 228 230 236 330 280 L0 280 Z"/>
+  <path fill="url(#front)" d="M1160 280 C1270 236 1420 224 1600 236 L1600 280 Z"/>
+  <path fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="3" d="M-20 230 C110 196 250 210 360 280"/>
+  <path fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3" d="M1120 280 C1240 220 1420 205 1620 216"/>
+  <path fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="2" d="M420 262 C620 236 860 236 1080 258"/>
+
+  <!-- Small dot grid on the foreground -->
+  <rect x="40" y="246" width="66" height="44" fill="url(#dots)"/>
+</svg>

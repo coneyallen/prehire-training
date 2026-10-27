@@ -159,11 +159,9 @@ export default function ProfilePage() {
           <BackLink />
         </div>
 
-        {/* Banner: the image is flipped and blended over blue, as in the design */}
+        {/* Banner: a soft landscape tinted blue by blending it over the brand color */}
         <div className="relative mt-6 h-[140px] overflow-hidden bg-[#0084ff] md:h-[235px] md:rounded-[4px]">
-          <div className="absolute left-[calc(50%-110px)] top-[calc(50%+40px)] h-[480px] w-[720px] md:left-[calc(50%-120px)] md:top-[calc(50%+30px)] md:h-[733px] md:w-[1100px] lg:left-[calc(50%+31px)] lg:top-[calc(50%+75px)] lg:h-[1005px] lg:w-[1507px] -translate-x-1/2 -translate-y-1/2 mix-blend-luminosity">
-            <Img src={a("banner")} className="size-full -scale-x-100 object-cover" />
-          </div>
+          <Img src="/assets/profile/banner.svg" className="absolute inset-0 size-full object-cover mix-blend-luminosity" />
         </div>
 
         <ProfileHeader name={name} language={language} />
