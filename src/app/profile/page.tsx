@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { Languages, Plus } from "lucide-react";
 import { CalendarIcon, PencilIcon } from "@heroicons/react/24/solid";
 import EG from "country-flag-icons/react/3x2/EG";
 import FR from "country-flag-icons/react/3x2/FR";
 import IT from "country-flag-icons/react/3x2/IT";
 import US from "country-flag-icons/react/3x2/US";
-import { Button, Header, Img } from "@/components/ui";
+import { BackLink, Button, Header, Img } from "@/components/ui";
 import { useStore } from "@/lib/store";
 
 // Layout follows the Figma frame "Profile" (desktop, 1440).
@@ -66,11 +65,11 @@ function Card({ title, children, className = "" }: { title: string; children: Re
   );
 }
 
-function ProfileHeader({ language }: { language: string }) {
+function ProfileHeader({ name, language }: { name: string; language: string }) {
   return (
     <div className="relative flex flex-col px-4 md:flex-row md:gap-8 md:px-0">
       <div className="relative -mt-[60px] w-fit shrink-0 md:-mt-8">
-        <Img src={a("photo")} alt="Allison Hardin" className="size-[120px] rounded-full object-cover md:size-[187px]" />
+        <Img src="/assets/avatar.png" alt={name} className="size-[120px] rounded-full object-cover md:size-[187px]" />
         <button
           aria-label="Change profile picture"
           className="absolute left-[93px] top-[9px] flex size-[30px] items-center justify-center rounded-full bg-[#fafbfc] text-[#181e24] shadow-[0_4px_4px_rgba(24,30,36,0.04)] hover:bg-white md:left-[145px] md:top-[14.5px]"
@@ -82,7 +81,7 @@ function ProfileHeader({ language }: { language: string }) {
       <div className="mt-6 flex min-w-0 flex-1 flex-col gap-6 md:mt-0 md:flex-row md:items-start md:justify-between md:pt-[25.5px]">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <h2 className="font-display text-[28px] leading-[1.2] text-[#181e24] md:text-[32px]">Allison Hardin</h2>
+            <h2 className="font-display text-[28px] leading-[1.2] text-[#181e24] md:text-[32px]">{name}</h2>
             <div className="flex flex-wrap items-center gap-[6px] text-[16px] font-medium leading-[22px] text-[#181e24]">
               <p>Custodian</p>
               <span aria-hidden className="size-[3px] rounded-full bg-[#181e24]" />
@@ -105,33 +104,6 @@ function ProfileHeader({ language }: { language: string }) {
         </Button>
       </div>
     </div>
-  );
-}
-
-function Tabs() {
-  const tab = "flex flex-col gap-[6px] text-[14px] font-medium leading-5";
-  const label = (text: string) => <span className="trim">{text}</span>;
-  return (
-    <nav className="flex gap-6 overflow-x-auto px-4 md:px-0">
-      <span aria-current="page" className={`${tab} text-[#181e24]`}>
-        {label("Profile")}
-        <span className="h-[2px] rounded-[2px] bg-[#0084ff]" />
-      </span>
-      {["My Job", "Report Card"].map((t) => (
-        <span key={t} className={`${tab} whitespace-nowrap text-[#5b6671]`}>
-          {label(t)}
-          <span className="h-[2px]" />
-        </span>
-      ))}
-      <Link href="/courses" className={`${tab} text-[#5b6671] hover:text-[#0084ff]`}>
-        {label("Training")}
-        <span className="h-[2px]" />
-      </Link>
-      <span className={`${tab} text-[#5b6671]`}>
-        {label("Team")}
-        <span className="h-[2px]" />
-      </span>
-    </nav>
   );
 }
 
@@ -173,13 +145,16 @@ function AboutMe() {
 }
 
 export default function ProfilePage() {
-  const { language } = useStore();
+  const { name, language } = useStore();
 
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-[1440px] pb-16 pt-6 md:px-8 lg:pb-[106px]">
-        <h1 className="px-4 font-display text-[20px] leading-[1.2] text-[#181e24] md:px-0">Employee Profile</h1>
+      <main className="mx-auto w-full max-w-[1440px] pb-16 pt-6 md:px-8 md:pt-8 lg:pb-[106px]">
+        <h1 className="sr-only">Employee Profile</h1>
+        <div className="px-4 md:px-0">
+          <BackLink />
+        </div>
 
         {/* Banner: the image is flipped and blended over blue, as in the design */}
         <div className="relative mt-6 h-[140px] overflow-hidden bg-[#0084ff] md:h-[235px] md:rounded-[4px]">
@@ -188,13 +163,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <ProfileHeader language={language} />
+        <ProfileHeader name={name} language={language} />
 
-        <div className="mt-12">
-          <Tabs />
-        </div>
-
-        <div className="mt-6 grid items-start gap-6 px-4 md:px-0 lg:grid-cols-2">
+        <div className="mt-12 grid items-start gap-6 px-4 md:px-0 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
             <AboutMe />
             <Card title="My Family" className="pb-8">
@@ -237,7 +208,7 @@ export default function ProfilePage() {
               <div className="relative aspect-[628.5/367] overflow-hidden rounded-[4px]">
                 <Img
                   src={a("map")}
-                  alt="Map highlighting the countries Allison has visited"
+                  alt="Map highlighting the countries visited"
                   className="absolute left-[52.67%] top-[48.23%] h-[111.72%] w-[112.17%] max-w-none -translate-x-1/2 -translate-y-1/2"
                 />
               </div>

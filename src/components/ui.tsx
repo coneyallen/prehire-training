@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Languages, RotateCcw } from "lucide-react";
+import { ArrowLeft, ChevronDown, Languages, RotateCcw } from "lucide-react";
 import { DevicePhoneMobileIcon, RocketLaunchIcon } from "@heroicons/react/24/solid";
 import { languages, type PlaceholderIcon } from "@/lib/data";
 import { useStore } from "@/lib/store";
@@ -176,5 +176,17 @@ export function ProgressBar({ value, track, fill, height = "h-2" }: { value: num
     <div className={`relative ${height} min-w-0 grow overflow-hidden rounded-[8px] ${track}`}>
       <div className={`absolute inset-y-0 left-0 rounded-[8px] ${fill} transition-[width] duration-500`} style={{ width: `${value * 100}%` }} />
     </div>
+  );
+}
+
+export function BackLink() {
+  return (
+    <Link
+      href="/courses"
+      className="flex h-[14px] w-fit items-center gap-2 text-[14px] font-medium leading-5 text-black hover:text-[#0084ff] md:text-[16px] md:leading-[22px]"
+    >
+      <ArrowLeft size={14} strokeWidth={2.5} />
+      <span className="trim">Back to All Courses</span>
+    </Link>
   );
 }

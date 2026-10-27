@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Captions, Check, Lock, Maximize, MessagesSquare, Play, RotateCcw, Volume2 } from "lucide-react";
-import { Button, Header, Img } from "@/components/ui";
+import { Captions, Check, Lock, Maximize, MessagesSquare, Play, RotateCcw, Volume2 } from "lucide-react";
+import { BackLink, Button, Header, Img } from "@/components/ui";
 import { QuizModal } from "@/components/QuizModal";
 import { findCourse, type Course, type Skill } from "@/lib/data";
 import { useStore } from "@/lib/store";
@@ -76,18 +76,6 @@ function Player({ thumbnail, illustration, duration, onEnded }: { thumbnail: str
         <Maximize className="size-4 md:size-[18px]" />
       </div>
     </div>
-  );
-}
-
-function BackLink() {
-  return (
-    <Link
-      href="/courses"
-      className="flex h-[14px] w-fit items-center gap-2 text-[14px] font-medium leading-5 text-black hover:text-[#0084ff] md:text-[16px] md:leading-[22px]"
-    >
-      <ArrowLeft size={14} strokeWidth={2.5} />
-      <span className="trim">Back to All Courses</span>
-    </Link>
   );
 }
 

@@ -31,7 +31,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     try {
       const saved = localStorage.getItem(KEY);
       // eslint-disable-next-line react-hooks/set-state-in-effect -- load once after mount to avoid hydration mismatch
-      if (saved) setState({ ...initial, ...JSON.parse(saved) });
+      if (saved) setState({ ...initial, ...JSON.parse(saved), name: initial.name });
     } catch {}
     setReady(true);
   }, []);
@@ -43,11 +43,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, [state, ready]);
 
-  const signIn = useCallback((userId: string) => {
-    const first = userId.trim().split(/[\s@._-]/)[0];
-    const name = first ? first[0].toUpperCase() + first.slice(1) : "Jane";
-    setState((s) => ({ ...s, name }));
-  }, []);
+  // The demo user is always Jane, whatever User ID is typed in.
+  const signIn = useCallback(() => setState((s) => ({ ...s, name: "Jane" })), []);
 
   const setLanguage = useCallback((language: string) => setState((s) => ({ ...s, language })), []);
 
