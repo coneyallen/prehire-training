@@ -2,23 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import {
-  Bell,
-  CalendarDays,
-  ChevronDown,
-  ClipboardCheck,
-  Clock,
-  Languages,
-  LayoutGrid,
-  LifeBuoy,
-  LogIn,
-  Plane,
-  Rocket,
-  RotateCcw,
-  Smartphone,
-  TriangleAlert,
-  UserRound,
-} from "lucide-react";
+import { ChevronDown, Languages, RotateCcw } from "lucide-react";
+import { DevicePhoneMobileIcon, RocketLaunchIcon } from "@heroicons/react/24/solid";
 import { languages, type PlaceholderIcon } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
@@ -37,28 +22,18 @@ export function Img({ src, alt = "", className = "" }: { src: string; alt?: stri
   return <img ref={ref} src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
 }
 
-const placeholderIcons = {
-  rocket: Rocket,
-  smartphone: Smartphone,
-  "log-in": LogIn,
-  layout: LayoutGrid,
-  user: UserRound,
-  bell: Bell,
-  help: LifeBuoy,
-  clock: Clock,
-  calendar: CalendarDays,
-  clipboard: ClipboardCheck,
-  alert: TriangleAlert,
-  plane: Plane,
+const solidSkillIcons: Partial<Record<PlaceholderIcon, typeof RocketLaunchIcon>> = {
+  rocket: RocketLaunchIcon,
+  smartphone: DevicePhoneMobileIcon,
 };
 
-/** Placeholder art: a light purple panel with an icon, used until real images exist. */
-export function Placeholder({ icon, className = "", iconSize = 32 }: { icon: PlaceholderIcon; className?: string; iconSize?: number }) {
-  const Icon = placeholderIcons[icon];
+/** Skill header badge: solid purple circle with a filled white icon. */
+export function SkillBadge({ icon }: { icon: PlaceholderIcon }) {
+  const Icon = solidSkillIcons[icon] ?? RocketLaunchIcon;
   return (
-    <div aria-hidden className={`flex items-center justify-center bg-[#e7e5f7] text-[#4c469c] ${className}`}>
-      <Icon size={iconSize} strokeWidth={1.75} />
-    </div>
+    <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#635cbb] text-white">
+      <Icon className="size-5" />
+    </span>
   );
 }
 

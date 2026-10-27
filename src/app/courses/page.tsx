@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, BookOpen, Building2, CalendarDays, Check, ChevronDown, CircleCheck, Clock, ListTree, User } from "lucide-react";
-import { Header, Img, Placeholder, ProgressBar } from "@/components/ui";
+import { Header, Img, ProgressBar, SkillBadge } from "@/components/ui";
 import { allCourses, programs, type Course, type Program, type Skill } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
@@ -192,7 +192,7 @@ function SkillGroup({
         className={`flex items-center gap-4 rounded-[12px] px-4 py-6 text-left md:gap-6 md:p-6 ${skill.tint}`}
       >
         {skill.placeholder ? (
-          <Placeholder icon={skill.placeholder} iconSize={20} className="size-10 shrink-0 rounded-full border border-[#4c469c]" />
+          <SkillBadge icon={skill.placeholder} />
         ) : (
           <Img src={skill.icon} className="size-10 shrink-0 rounded-full border border-[#0084ff] object-cover" />
         )}
