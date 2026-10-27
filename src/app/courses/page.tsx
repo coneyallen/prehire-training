@@ -28,23 +28,27 @@ function WelcomeHero({ name }: { name: string }) {
     { icon: Building2, label: "Site:", value: "Delta, LaGuardia NY" },
   ];
   return (
-    <section className="relative overflow-hidden bg-[#004383] md:rounded-[16px] px-6 pb-[102px] pt-10 md:px-8 lg:h-[440px] lg:pb-0 lg:pt-[60px]">
-      <div className="pointer-events-none absolute right-[-112px] top-[-92px] flex size-[570px] items-center justify-center">
+    <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:rounded-[16px] md:px-8 md:pb-[102px] lg:h-[440px] lg:pb-0 lg:pt-[60px]">
+      {/* Phones: the shape sits bottom-right behind the text */}
+      <div className="pointer-events-none absolute left-[200px] top-[193px] flex size-[257px] items-center justify-center md:hidden">
+        <Img src="/assets/hero-shape.svg" className="size-[210px] rotate-[15deg]" />
+      </div>
+      <div className="pointer-events-none absolute right-[-112px] top-[-92px] hidden size-[570px] items-center justify-center md:flex">
         <Img src="/assets/hero-shape.svg" className="size-[465px] rotate-[15deg]" />
       </div>
       <div className="relative mx-auto h-full max-w-[900px]">
         <div className="relative z-10 flex max-w-[500px] flex-col gap-6">
-          <div className="flex flex-col gap-3 lg:w-[627px] lg:max-w-none">
-            <h1 className="font-display text-[32px] leading-[1.15] text-white [text-box:normal] md:text-[44px]">Welcome to the team, {name}!</h1>
+          <div className="flex max-w-[353px] flex-col gap-3 md:max-w-none lg:w-[627px]">
+            <h1 className="font-display text-[32px] leading-[1.2] text-white md:text-[44px] md:leading-[1.15] md:[text-box:normal]">Welcome to the team, {name}!</h1>
             {/* Line breaks match the Figma frame on desktop */}
-            <p className="text-[17px] leading-[1.5] text-[rgba(255,255,255,0.92)] [text-box:normal] font-[family-name:var(--font-lato)] md:text-[19px]">
+            <p className="text-[16px] leading-[1.5] text-[rgba(255,255,255,0.92)] [text-box:normal] font-[family-name:var(--font-lato)] md:text-[19px]">
               We&apos;re excited to have you join SBM as a <span className={highlight}>Custodian</span> <b>at</b>{" "}
               <span className={highlight}>LaGuardia, NY</span>.<br className="hidden lg:block" /> Your first day is{" "}
               <span className={highlight}>Monday, November 3</span>. Please complete
               <br className="hidden lg:block" /> the following training so you&apos;re ready for day one!
             </p>
           </div>
-          <dl className="flex flex-col gap-[10px]">
+          <dl className="flex flex-col gap-2 md:gap-[10px]">
             {details.map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex h-7 items-center gap-[10px] text-[16px]">
                 <Icon size={14} className="text-white/60" aria-hidden />
@@ -99,29 +103,33 @@ function ProgressDonut({ value }: { value: number }) {
 
 function Checklist({ doneTotal, total }: { doneTotal: number; total: number }) {
   return (
-    <section className="relative z-10 mx-auto -mt-[62px] w-[calc(100%-32px)] max-w-[900px] overflow-hidden rounded-[12px] bg-white md:w-full">
+    <section className="relative z-10 mx-auto -mt-16 w-[calc(100%-32px)] md:-mt-[62px] max-w-[900px] overflow-hidden rounded-[12px] bg-white md:w-full">
       <h2 className="p-6 text-[16px] font-medium leading-[22px] text-[#171c24]">Before your Start Date</h2>
-      <div className="flex min-h-[72px] flex-wrap items-center gap-4 border-b border-[#e1e5ea] p-4">
+      <div className="flex items-start gap-4 border-b border-[#e1e5ea] p-4 md:min-h-[72px] md:items-center">
         <ProgressDonut value={doneTotal / total} />
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           <p className="text-[14px] font-medium leading-5 text-[#171c24]">Finish your pre-hire training</p>
-          <p className="text-[12px] leading-[18px] text-[#5b6671]">
+          <p className="text-[14px] leading-[22px] text-[#5b6671] md:text-[12px] md:leading-[18px]">
             {doneTotal} of {total} courses complete
           </p>
         </div>
         {doneTotal < total && (
-          <span className="ml-[38px] flex items-center gap-[6px] rounded-[8px] bg-[rgba(237,92,33,0.12)] py-[5px] pl-[10px] pr-3 text-[12px] leading-[18px] text-[#ed5c21] sm:ml-0">
+          <span className="flex shrink-0 items-center gap-[6px] rounded-[8px] bg-[rgba(237,92,33,0.12)] py-[5px] pl-[10px] pr-3 text-[12px] leading-[18px] text-[#ed5c21]">
             <Clock size={12} strokeWidth={2.5} /> Due in 8 days
           </span>
         )}
       </div>
-      <div className="flex items-center gap-4 p-4">
+      <div className="flex items-start gap-4 p-4 md:items-center">
         <Checkbox checked />
-        <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <div className="flex min-w-0 flex-1 flex-col gap-3 md:gap-2">
           <p className="text-[14px] font-medium leading-5 text-[#171c24]">Update your profile</p>
-          <p className="text-[12px] leading-[18px] text-[#5b6671]">Add your Profile pic, about me and more</p>
+          <p className="text-[14px] leading-[22px] text-[#5b6671] md:text-[12px] md:leading-[18px]">Add your Profile pic, about me and more</p>
+          {/* Phones: the link sits under the text */}
+          <button className="flex h-[14px] w-fit items-center gap-1 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] md:hidden">
+            Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
+          </button>
         </div>
-        <button className="flex h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff]">
+        <button className="hidden h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff] md:flex">
           Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
         </button>
       </div>
@@ -201,13 +209,22 @@ function SkillGroup({
   );
 }
 
-function ProgramSection({ program, filter, completed }: { program: Program; filter: Filter; completed: string[] }) {
+function ProgramSection({
+  program,
+  filter,
+  completed,
+  mobileFilters,
+}: {
+  program: Program;
+  filter: Filter;
+  completed: string[];
+  mobileFilters?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(true);
   const [collapsed, setCollapsed] = useState<string[]>([]);
   const courses = program.skills.flatMap((s) => s.courses);
   const doneCount = courses.filter((c) => completed.includes(c.id)).length;
   const shown = program.skills.map((s) => ({ skill: s, visible: visibleCourses(s, filter, completed) })).filter((s) => s.visible.length > 0);
-  if (shown.length === 0) return null;
 
   return (
     <section className="flex flex-col">
@@ -219,7 +236,7 @@ function ProgramSection({ program, filter, completed }: { program: Program; filt
       >
         <div className="relative flex flex-col gap-6">
           <div className="flex flex-col items-start gap-3 md:flex-row md:justify-between">
-            <h2 className="font-display text-[24px] leading-[1.2] text-[#fafbfc] md:text-[32px]">{program.title}</h2>
+            <h2 className="font-display text-[20px] leading-[1.2] text-[#fafbfc] md:text-[32px]">{program.title}</h2>
             <div className="flex h-5 items-center gap-4 text-[14px] font-medium tracking-[-0.28px] text-[#fafbfc]">
               <span className="flex items-center gap-2">
                 <ListTree size={16} /> {program.skills.length} Skills
@@ -228,7 +245,7 @@ function ProgramSection({ program, filter, completed }: { program: Program; filt
               <span className="flex items-center gap-2">
                 <BookOpen size={16} /> {courses.length} Courses
               </span>
-              <ChevronDown size={20} strokeWidth={2.5} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+              <ChevronDown size={20} strokeWidth={2.5} className={`hidden transition-transform md:block ${open ? "rotate-180" : ""}`} />
             </div>
           </div>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-[17px]">
@@ -240,9 +257,12 @@ function ProgramSection({ program, filter, completed }: { program: Program; filt
         </div>
       </button>
 
+      {/* Phones: the filters sit under the first program banner, per the mobile design */}
+      {mobileFilters && <div className="mt-8 md:hidden">{mobileFilters}</div>}
+
       {/* After an expanded skill there is a 40px gap; after a collapsed one, the normal 16px card gap. */}
-      {open && (
-        <div className="mt-6 flex flex-col">
+      {open && shown.length > 0 && (
+        <div className="mt-4 flex flex-col md:mt-6">
           {shown.map(({ skill, visible }, i) => (
             <SkillGroup
               key={skill.id}
@@ -265,6 +285,24 @@ export default function CoursesPage() {
   const [filter, setFilter] = useState<Filter>("All");
   const doneTotal = allCourses.filter((c) => completed.includes(c.id)).length;
 
+  const filters = (
+    <div className="flex gap-3" role="tablist">
+      {(["All", "Remaining", "Completed"] as Filter[]).map((f) => (
+        <button
+          key={f}
+          role="tab"
+          aria-selected={filter === f}
+          onClick={() => setFilter(f)}
+          className={`h-10 flex-1 rounded-[8px] px-3 text-[16px] font-medium leading-[22px] transition-colors md:flex-none ${
+            filter === f ? "bg-[#181e24] text-[#fafbfc]" : "bg-white text-[#181e24] hover:bg-[#fafbfc]"
+          }`}
+        >
+          {f}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
       <Header />
@@ -272,28 +310,14 @@ export default function CoursesPage() {
         <WelcomeHero name={name} />
         <Checklist doneTotal={doneTotal} total={allCourses.length} />
 
-        <div className="mx-auto mt-10 flex max-w-[900px] flex-col px-4 md:px-0">
-          <h2 className="font-display text-[24px] leading-[1.2] text-black [text-box:normal]">My Training</h2>
+        <div className="mx-auto mt-4 flex max-w-[900px] flex-col px-4 md:mt-10 md:px-0">
+          {/* Phones skip the heading and show the filters under the first program banner */}
+          <h2 className="hidden font-display text-[24px] leading-[1.2] text-black [text-box:normal] md:block">My Training</h2>
+          <div className="mt-6 hidden md:block">{filters}</div>
 
-          <div className="mt-6 flex gap-3" role="tablist">
-            {(["All", "Remaining", "Completed"] as Filter[]).map((f) => (
-              <button
-                key={f}
-                role="tab"
-                aria-selected={filter === f}
-                onClick={() => setFilter(f)}
-                className={`h-10 flex-1 rounded-[8px] px-3 text-[16px] font-medium leading-[22px] transition-colors md:flex-none ${
-                  filter === f ? "bg-[#181e24] text-[#fafbfc]" : "bg-white text-[#181e24] hover:bg-[#fafbfc]"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-6 flex flex-col gap-6">
-            {programs.map((p) => (
-              <ProgramSection key={p.id} program={p} filter={filter} completed={completed} />
+          <div className="flex flex-col gap-6 md:mt-6">
+            {programs.map((p, i) => (
+              <ProgramSection key={p.id} program={p} filter={filter} completed={completed} mobileFilters={i === 0 ? filters : undefined} />
             ))}
           </div>
         </div>
