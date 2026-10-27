@@ -176,7 +176,7 @@ const introSkills: Skill[] = [
     id: "getting-started-4insite",
     title: "Getting Started with 4insite",
     icon: "/assets/skill-custodian.png",
-    tint: "bg-[rgba(0,132,255,0.1)]",
+    tint: "bg-[rgba(200,197,246,0.25)]",
     bar: "bg-[#4c469c]",
     courses: [
       course("logging-in", "Logging In to 4insite", "payroll", "Learn how to sign in to the 4insite app and keep your account secure."),
@@ -190,7 +190,7 @@ const introSkills: Skill[] = [
     id: "using-4insite",
     title: "Using 4insite on the Job",
     icon: "/assets/skill-safety.png",
-    tint: "bg-[rgba(0,132,255,0.1)]",
+    tint: "bg-[rgba(200,197,246,0.25)]",
     bar: "bg-[#0084ff]",
     courses: [
       course("clocking-in", "Clocking In and Out", "payroll", "Learn how to clock in and out of your shift using 4insite."),

@@ -74,12 +74,35 @@ function Checkbox({ checked }: { checked: boolean }) {
   );
 }
 
-function Checklist({ doneTotal, total, profileDone, onEditProfile }: { doneTotal: number; total: number; profileDone: boolean; onEditProfile: () => void }) {
+/** Mini donut chart showing how much of the training is done; becomes a check when finished. */
+function ProgressDonut({ value }: { value: number }) {
+  if (value >= 1) return <Checkbox checked />;
+  const r = 9;
+  const c = 2 * Math.PI * r;
+  return (
+    <svg viewBox="0 0 22 22" className="size-[22px] shrink-0 -rotate-90" role="img" aria-label={`${Math.round(value * 100)}% complete`}>
+      <circle cx="11" cy="11" r={r} fill="none" stroke="#e1e5ea" strokeWidth="3" />
+      <circle
+        cx="11"
+        cy="11"
+        r={r}
+        fill="none"
+        stroke="#00cc70"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray={`${value * c} ${c}`}
+        className="transition-[stroke-dasharray] duration-500"
+      />
+    </svg>
+  );
+}
+
+function Checklist({ doneTotal, total }: { doneTotal: number; total: number }) {
   return (
     <section className="relative z-10 mx-auto -mt-[62px] w-[calc(100%-32px)] max-w-[900px] overflow-hidden rounded-[12px] bg-white md:w-full">
       <h2 className="p-6 text-[16px] font-medium leading-[22px] text-[#171c24]">Before your Start Date</h2>
       <div className="flex min-h-[72px] flex-wrap items-center gap-4 border-b border-[#e1e5ea] p-4">
-        <Checkbox checked={doneTotal === total} />
+        <ProgressDonut value={doneTotal / total} />
         <div className="flex min-w-0 flex-1 flex-col gap-3">
           <p className="text-[14px] font-medium leading-5 text-[#171c24]">Finish your pre-hire training</p>
           <p className="text-[12px] leading-[18px] text-[#5b6671]">
@@ -93,19 +116,14 @@ function Checklist({ doneTotal, total, profileDone, onEditProfile }: { doneTotal
         )}
       </div>
       <div className="flex items-center gap-4 p-4">
-        <Checkbox checked={profileDone} />
+        <Checkbox checked />
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <p className="text-[14px] font-medium leading-5 text-[#171c24]">Update your profile</p>
           <p className="text-[12px] leading-[18px] text-[#5b6671]">Add your Profile pic, about me and more</p>
         </div>
-        {!profileDone && (
-          <button
-            onClick={onEditProfile}
-            className="flex h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff]"
-          >
-            Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
-          </button>
-        )}
+        <button className="flex h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff]">
+          Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
+        </button>
       </div>
     </section>
   );
@@ -235,7 +253,7 @@ function ProgramSection({ program, filter, completed }: { program: Program; filt
 }
 
 export default function CoursesPage() {
-  const { name, completed, profileDone, completeProfile } = useStore();
+  const { name, completed } = useStore();
   const [filter, setFilter] = useState<Filter>("All");
   const doneTotal = allCourses.filter((c) => completed.includes(c.id)).length;
 
@@ -244,7 +262,7 @@ export default function CoursesPage() {
       <Header />
       <main className="w-full pb-20 md:px-8 md:pt-8">
         <WelcomeHero name={name} />
-        <Checklist doneTotal={doneTotal} total={allCourses.length} profileDone={profileDone} onEditProfile={completeProfile} />
+        <Checklist doneTotal={doneTotal} total={allCourses.length} />
 
         <div className="mx-auto mt-10 flex max-w-[900px] flex-col px-4 md:px-0">
           <h2 className="font-display text-[24px] leading-[1.2] text-black [text-box:normal]">My Training</h2>
