@@ -30,7 +30,7 @@ function WelcomeHero({ name }: { name: string }) {
   return (
     <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:rounded-[16px] md:px-8 md:pb-[102px] lg:h-[440px] lg:pb-0 lg:pt-[60px]">
       {/* Phones: the shape sits bottom-right behind the text */}
-      <div className="pointer-events-none absolute left-[200px] top-[193px] flex size-[257px] items-center justify-center md:hidden">
+      <div className="pointer-events-none absolute -right-[100px] bottom-[-15px] flex size-[257px] items-center justify-center md:hidden">
         <Img src="/assets/hero-shape.svg" className="size-[210px] rotate-[15deg]" />
       </div>
       <div className="pointer-events-none absolute right-[-112px] top-[-92px] hidden size-[570px] items-center justify-center md:flex">
