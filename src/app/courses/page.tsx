@@ -28,7 +28,7 @@ function WelcomeHero({ name }: { name: string }) {
     { icon: Building2, label: "Site:", value: "Acme Corp" },
   ];
   return (
-    <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:pb-[102px] hero:rounded-[16px] md:px-8 lg:h-[440px] lg:pb-0 lg:pt-[60px]">
+    <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:pb-[102px] min-[964px]:rounded-[16px] md:px-8 lg:h-[440px] lg:pb-0 lg:pt-[60px]">
       {/* Phones: a smaller shape on the right, faint so the text over it stays readable */}
       <Img src="/assets/hero-shape.svg" className="pointer-events-none absolute right-[-40px] top-[141px] size-[300px] rotate-[15deg] opacity-50 md:hidden" />
       <div className="pointer-events-none absolute right-[-112px] top-[-92px] hidden size-[570px] items-center justify-center md:flex">
@@ -103,7 +103,7 @@ function ProgressDonut({ value }: { value: number }) {
 
 function Checklist({ doneTotal, total }: { doneTotal: number; total: number }) {
   return (
-    <section className="relative z-10 mx-auto -mt-16 w-[calc(100%-32px)] md:-mt-[62px] max-w-[900px] overflow-hidden rounded-[12px] bg-white hero:w-full">
+    <section className="relative z-10 mx-auto -mt-16 w-[calc(100%-32px)] md:-mt-[62px] max-w-[900px] overflow-hidden rounded-[12px] bg-white min-[964px]:w-full">
       <h2 className="p-6 text-[16px] font-medium leading-[22px] text-[#171c24]">Before your Start Date</h2>
       <div className="flex items-start gap-4 border-b border-[#e1e5ea] p-4 md:min-h-[72px] md:items-center">
         <ProgressDonut value={doneTotal / total} />
@@ -303,11 +303,11 @@ export default function CoursesPage() {
   return (
     <>
       <Header />
-      <main className="w-full pb-20 hero:px-8 hero:pt-8">
+      <main className="w-full pb-20 min-[964px]:px-8 min-[964px]:pt-8">
         <WelcomeHero name={name} />
         <Checklist doneTotal={doneTotal} total={allCourses.length} />
 
-        <div className="mx-auto mt-8 flex max-w-[900px] flex-col px-4 md:mt-[60px] hero:px-0">
+        <div className="mx-auto mt-8 flex max-w-[900px] flex-col px-4 md:mt-[60px] min-[964px]:px-0">
           <h2 className="font-display text-[24px] leading-[1.2] text-[#171c24] [text-box:normal] md:text-[32px] md:[text-box:trim-both_cap_alphabetic]">My Training</h2>
           <div className="mt-4 md:mt-8">{filters}</div>
 
