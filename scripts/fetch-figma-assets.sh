@@ -38,3 +38,4 @@ get "$LIST/964af.png" thumb-high-traffic.png
 get "$LIST/19338.png" thumb-payroll.png
 get "$LIST/00e92.png" thumb-eye-protection.png
 get "$LIST/461ea.png" thumb-hand-protection.png
+get "https://www.figma.com/api/mcp/asset/8742b988-f0d4-4bc9-8601-88f4275cc5b1/17a89.svg" hero-shape.svg

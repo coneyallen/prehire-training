@@ -7,6 +7,7 @@ type State = {
   name: string;
   language: string;
   completed: string[];
+  profileDone: boolean;
 };
 
 type Store = State & {
@@ -14,11 +15,12 @@ type Store = State & {
   signIn: (userId: string) => void;
   setLanguage: (language: string) => void;
   completeCourse: (id: string) => void;
+  completeProfile: () => void;
   resetDemo: () => void;
 };
 
 const KEY = "prehire-demo";
-const initial: State = { name: "Jane", language: "English", completed: initiallyCompleted };
+const initial: State = { name: "Jane", language: "English", completed: initiallyCompleted, profileDone: false };
 
 const StoreContext = createContext<Store | null>(null);
 
@@ -57,10 +59,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [],
   );
 
+  const completeProfile = useCallback(() => setState((s) => ({ ...s, profileDone: true })), []);
+
   const resetDemo = useCallback(() => setState(initial), []);
 
   return (
-    <StoreContext.Provider value={{ ...state, ready, signIn, setLanguage, completeCourse, resetDemo }}>
+    <StoreContext.Provider value={{ ...state, ready, signIn, setLanguage, completeCourse, completeProfile, resetDemo }}>
       {children}
     </StoreContext.Provider>
   );

@@ -16,6 +16,14 @@ export type Skill = {
   courses: Course[];
 };
 
+export type Program = {
+  id: string;
+  title: string;
+  banner: string; // CSS background for the program banner
+  track: string; // progress bar track
+  skills: Skill[];
+};
+
 export type QuizQuestion = {
   question: string;
   answers: string[];
@@ -25,12 +33,12 @@ export type QuizQuestion = {
 const due = "09/15/2026";
 const t = (name: string) => `/assets/thumb-${name}.png`;
 
-export const skills: Skill[] = [
+const preHireSkills: Skill[] = [
   {
     id: "custodian",
     title: "Your Role as a Custodian",
     icon: "/assets/skill-custodian.png",
-    tint: "bg-[rgba(200,197,246,0.25)]",
+    tint: "bg-[rgba(0,132,255,0.1)]",
     bar: "bg-[#4c469c]",
     courses: [
       {
@@ -129,7 +137,7 @@ export const skills: Skill[] = [
     id: "safe-work",
     title: "Safe Work Practices",
     icon: "/assets/skill-safety.png",
-    tint: "bg-[rgba(0,132,255,0.17)]",
+    tint: "bg-[rgba(0,132,255,0.1)]",
     bar: "bg-[#0084ff]",
     courses: [
       ["slips-trips-falls", "Slips, Trips & Falls", "stairway-safety"],
@@ -152,6 +160,66 @@ export const skills: Skill[] = [
     })),
   },
 ];
+
+// Demo content for the second program (the Figma frame repeats the Pre-Hire courses as placeholders).
+const course = (id: string, title: string, thumb: string, description: string): Course => ({
+  id,
+  title,
+  duration: "15:32",
+  due,
+  thumbnail: t(thumb),
+  description,
+});
+
+const introSkills: Skill[] = [
+  {
+    id: "getting-started-4insite",
+    title: "Getting Started with 4insite",
+    icon: "/assets/skill-custodian.png",
+    tint: "bg-[rgba(0,132,255,0.1)]",
+    bar: "bg-[#4c469c]",
+    courses: [
+      course("logging-in", "Logging In to 4insite", "payroll", "Learn how to sign in to the 4insite app and keep your account secure."),
+      course("navigating-the-app", "Navigating the App", "eye-protection", "Take a quick tour of the 4insite home screen and where to find what you need."),
+      course("your-profile", "Setting Up Your Profile", "good-catch", "Add your photo and details so your team knows who you are."),
+      course("notifications", "Notifications and Messages", "incident-reporting", "Learn how 4insite keeps you up to date on schedules, tasks and announcements."),
+      course("getting-help", "Getting Help in 4insite", "high-traffic", "Find answers fast and learn who to contact when you need support."),
+    ],
+  },
+  {
+    id: "using-4insite",
+    title: "Using 4insite on the Job",
+    icon: "/assets/skill-safety.png",
+    tint: "bg-[rgba(0,132,255,0.1)]",
+    bar: "bg-[#0084ff]",
+    courses: [
+      course("clocking-in", "Clocking In and Out", "payroll", "Learn how to clock in and out of your shift using 4insite."),
+      course("your-schedule", "Viewing Your Schedule", "daily-cleaning-logs", "See your upcoming shifts and where you'll be working."),
+      course("completing-inspections", "Completing Inspections", "disinfectant-cleaning", "Learn how to complete and submit an area inspection in 4insite."),
+      course("reporting-issues", "Reporting Issues", "stairway-safety", "Report a hazard, damage or supply need right from your phone."),
+      course("time-off", "Requesting Time Off", "hand-protection", "Learn how to request time off and check its status."),
+    ],
+  },
+];
+
+export const programs: Program[] = [
+  {
+    id: "pre-hire",
+    title: "Pre-Hire",
+    banner: "linear-gradient(146.4deg, #181e24 9.6%, #006acd 59.6%)",
+    track: "bg-[#00509c]",
+    skills: preHireSkills,
+  },
+  {
+    id: "intro-4insite",
+    title: "Introduction to 4insite",
+    banner: "linear-gradient(175.9deg, #4c469c 37.3%, #635cbb 80.8%)",
+    track: "bg-[#3d3888]",
+    skills: introSkills,
+  },
+];
+
+export const skills = programs.flatMap((p) => p.skills);
 
 /** Courses already completed when the demo starts (matches the Figma file). */
 export const initiallyCompleted = [

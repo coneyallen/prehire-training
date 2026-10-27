@@ -6,7 +6,7 @@ A clickable prototype of the 4insite pre-hire training experience, built from th
 
 1. **Login** — any User ID and password work (leave blank to sign in as "Jane").
 2. **Choose language** — pick a language; it's remembered in the header menu.
-3. **Course list** — overall progress, skill groups that collapse, and All / Remaining / Completed filters.
+3. **Course list** — a welcome banner with start details, a "Before your Start Date" checklist (Edit Profile checks off the profile task), and My Training: two programs (Pre-Hire and Introduction to 4insite) with collapsible skills and All / Remaining / Completed filters.
 4. **Course video** — press play to jump to the end of the video and unlock the quiz.
 5. **Quiz** — 3 questions, not graded. A wrong pick is marked, and the user keeps trying until they choose the right answer. Finishing earns credit for the course.
 

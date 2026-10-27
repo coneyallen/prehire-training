@@ -2,15 +2,116 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookOpen, ChevronDown, CircleCheck, ListTree } from "lucide-react";
+import { ArrowRight, BookOpen, Building2, CalendarDays, Check, ChevronDown, CircleCheck, Clock, ListTree, User } from "lucide-react";
 import { Header, Img, ProgressBar } from "@/components/ui";
-import { allCourses, skills, type Course, type Skill } from "@/lib/data";
+import { allCourses, programs, type Course, type Program, type Skill } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
-// Spacing follows the Figma frames "Course List" (desktop, 1440) and "Mobile List" (402).
+// Layout follows the Figma frame "Option B – Checklist Overlapping Hero" (desktop, 1440).
 // Text is trimmed to cap height (see globals.css), so gaps here are the gaps between letters in Figma.
 
 type Filter = "All" | "Remaining" | "Completed";
+
+const visibleCourses = (skill: Skill, filter: Filter, completed: string[]) =>
+  skill.courses.filter((c) => {
+    const done = completed.includes(c.id);
+    return filter === "All" || (filter === "Completed" ? done : !done);
+  });
+
+/* ---------- Welcome hero + checklist ---------- */
+
+function WelcomeHero({ name }: { name: string }) {
+  const highlight = "font-bold text-[#80c2ff]";
+  const details = [
+    { icon: CalendarDays, label: "Start Date:", value: "Monday, November 3" },
+    { icon: User, label: "Position:", value: "Custodian" },
+    { icon: Building2, label: "Site:", value: "Delta, LaGuardia NY" },
+  ];
+  return (
+    <section className="relative overflow-hidden bg-[#004383] md:rounded-[16px] px-6 pb-[102px] pt-10 md:px-8 lg:h-[440px] lg:pb-0 lg:pt-[60px]">
+      <div className="pointer-events-none absolute right-[-112px] top-[-92px] flex size-[570px] items-center justify-center">
+        <Img src="/assets/hero-shape.svg" className="size-[465px] rotate-[15deg]" />
+      </div>
+      <div className="relative mx-auto h-full max-w-[900px]">
+        <div className="relative z-10 flex max-w-[500px] flex-col gap-6">
+          <div className="flex flex-col gap-3 lg:w-[627px] lg:max-w-none">
+            <h1 className="font-display text-[32px] leading-[1.15] text-white [text-box:normal] md:text-[44px]">Welcome to the team, {name}!</h1>
+            {/* Line breaks match the Figma frame on desktop */}
+            <p className="text-[17px] leading-[1.5] text-[rgba(255,255,255,0.92)] [text-box:normal] font-[family-name:var(--font-lato)] md:text-[19px]">
+              We&apos;re excited to have you join SBM as a <span className={highlight}>Custodian</span> <b>at</b>{" "}
+              <span className={highlight}>LaGuardia, NY</span>.<br className="hidden lg:block" /> Your first day is{" "}
+              <span className={highlight}>Monday, November 3</span>. Please complete
+              <br className="hidden lg:block" /> the following training so you&apos;re ready for day one!
+            </p>
+          </div>
+          <dl className="flex flex-col gap-[10px]">
+            {details.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="flex h-7 items-center gap-[10px] text-[16px]">
+                <Icon size={14} className="text-white/60" aria-hidden />
+                <dt className="trim leading-6 text-white/60">{label}</dt>
+                <dd className="trim font-medium leading-[22px] text-white">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <Img
+          src="/assets/team.png"
+          alt="SBM team members"
+          className="pointer-events-none absolute left-[532px] top-4 hidden h-[395px] w-[594px] max-w-none object-cover lg:block"
+        />
+      </div>
+    </section>
+  );
+}
+
+function Checkbox({ checked }: { checked: boolean }) {
+  return checked ? (
+    <span className="flex size-[22px] shrink-0 items-center justify-center rounded-full bg-[#00cc70] text-white" aria-label="Done">
+      <Check size={14} strokeWidth={3} />
+    </span>
+  ) : (
+    <span className="size-[22px] shrink-0 rounded-full border-[1.5px] border-[#d0d5d9]" aria-label="Not done" />
+  );
+}
+
+function Checklist({ doneTotal, total, profileDone, onEditProfile }: { doneTotal: number; total: number; profileDone: boolean; onEditProfile: () => void }) {
+  return (
+    <section className="relative z-10 mx-auto -mt-[62px] w-[calc(100%-32px)] max-w-[900px] overflow-hidden rounded-[12px] bg-white md:w-full">
+      <h2 className="p-6 text-[16px] font-medium leading-[22px] text-[#171c24]">Before your Start Date</h2>
+      <div className="flex min-h-[72px] flex-wrap items-center gap-4 border-b border-[#e1e5ea] p-4">
+        <Checkbox checked={doneTotal === total} />
+        <div className="flex min-w-0 flex-1 flex-col gap-3">
+          <p className="text-[14px] font-medium leading-5 text-[#171c24]">Finish your pre-hire training</p>
+          <p className="text-[12px] leading-[18px] text-[#5b6671]">
+            {doneTotal} of {total} courses complete
+          </p>
+        </div>
+        {doneTotal < total && (
+          <span className="ml-[38px] flex items-center gap-[6px] rounded-[8px] bg-[rgba(237,92,33,0.12)] py-[5px] pl-[10px] pr-3 text-[12px] leading-[18px] text-[#ed5c21] sm:ml-0">
+            <Clock size={12} strokeWidth={2.5} /> Due in 8 days
+          </span>
+        )}
+      </div>
+      <div className="flex items-center gap-4 p-4">
+        <Checkbox checked={profileDone} />
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <p className="text-[14px] font-medium leading-5 text-[#171c24]">Update your profile</p>
+          <p className="text-[12px] leading-[18px] text-[#5b6671]">Add your Profile pic, about me and more</p>
+        </div>
+        {!profileDone && (
+          <button
+            onClick={onEditProfile}
+            className="flex h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff]"
+          >
+            Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Training list ---------- */
 
 function CourseCard({ course, done }: { course: Course; done: boolean }) {
   return (
@@ -35,30 +136,22 @@ function CourseCard({ course, done }: { course: Course; done: boolean }) {
   );
 }
 
-const visibleCourses = (skill: Skill, filter: Filter, completed: string[]) =>
-  skill.courses.filter((c) => {
-    const done = completed.includes(c.id);
-    return filter === "All" || (filter === "Completed" ? done : !done);
-  });
-
 function SkillGroup({
   skill,
-  filter,
+  visible,
   completed,
   open,
   onToggle,
   className,
 }: {
   skill: Skill;
-  filter: Filter;
+  visible: Course[];
   completed: string[];
   open: boolean;
   onToggle: () => void;
   className: string;
 }) {
   const doneCount = skill.courses.filter((c) => completed.includes(c.id)).length;
-  const visible = visibleCourses(skill, filter, completed);
-
   return (
     <section className={`flex flex-col gap-4 ${className}`}>
       <button
@@ -68,103 +161,115 @@ function SkillGroup({
       >
         <Img src={skill.icon} className="size-10 shrink-0 rounded-full border border-[#0084ff] object-cover" />
         <div className="flex min-w-0 flex-1 flex-col gap-3 md:gap-4">
-          <h2 className="text-[16px] font-medium leading-[22px] text-[#181e24] md:font-display md:font-black md:text-[20px] md:leading-[1.2]">
+          <h3 className="text-[16px] font-medium leading-[22px] text-[#181e24] md:font-display md:font-black md:text-[20px] md:leading-[1.2]">
             {skill.title}
-          </h2>
-          <div className="flex flex-col gap-3 md:flex-row md:items-center">
-            <p className="whitespace-nowrap text-[14px] leading-[22px] text-[#5b6671]">
-              {doneCount} of {skill.courses.length} Courses Complete
-            </p>
-            <ProgressBar value={doneCount / skill.courses.length} track="bg-[rgba(24,30,36,0.15)]" fill={skill.bar} />
-          </div>
+          </h3>
+          <p className="text-[14px] leading-[22px] text-[#181e24]">
+            {doneCount} of {skill.courses.length} Courses Complete
+          </p>
         </div>
-        <ChevronDown
-          className={`size-6 shrink-0 p-[3px] text-[rgba(24,30,36,0.35)] transition-transform md:p-0 ${open ? "rotate-180" : ""}`}
-        />
+        <ChevronDown className={`size-6 shrink-0 p-[3px] text-[rgba(24,30,36,0.35)] transition-transform md:p-0 ${open ? "rotate-180" : ""}`} />
       </button>
       {open && visible.map((c) => <CourseCard key={c.id} course={c} done={completed.includes(c.id)} />)}
     </section>
   );
 }
 
-export default function CoursesPage() {
-  const { name, completed } = useStore();
-  const [filter, setFilter] = useState<Filter>("All");
+function ProgramSection({ program, filter, completed }: { program: Program; filter: Filter; completed: string[] }) {
+  const [open, setOpen] = useState(true);
   const [collapsed, setCollapsed] = useState<string[]>([]);
-  const shownSkills = skills.filter((s) => visibleCourses(s, filter, completed).length > 0);
+  const courses = program.skills.flatMap((s) => s.courses);
+  const doneCount = courses.filter((c) => completed.includes(c.id)).length;
+  const shown = program.skills.map((s) => ({ skill: s, visible: visibleCourses(s, filter, completed) })).filter((s) => s.visible.length > 0);
+  if (shown.length === 0) return null;
+
+  return (
+    <section className="flex flex-col">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="relative overflow-hidden rounded-[12px] p-6 text-left shadow-[0_4px_8px_rgba(24,30,36,0.04)] md:p-8"
+        style={{ backgroundImage: program.banner }}
+      >
+        <div className="relative flex flex-col gap-6">
+          <div className="flex flex-col items-start gap-3 md:flex-row md:justify-between">
+            <h2 className="font-display text-[24px] leading-[1.2] text-[#fafbfc] md:text-[32px]">{program.title}</h2>
+            <div className="flex h-5 items-center gap-4 text-[14px] font-medium tracking-[-0.28px] text-[#fafbfc]">
+              <span className="flex items-center gap-2">
+                <ListTree size={16} /> {program.skills.length} Skills
+              </span>
+              <span className="h-6 w-px bg-white/40" />
+              <span className="flex items-center gap-2">
+                <BookOpen size={16} /> {courses.length} Courses
+              </span>
+              <ChevronDown size={20} strokeWidth={2.5} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-[17px]">
+            <p className="whitespace-nowrap text-[16px] font-medium leading-[22px] text-white">
+              {doneCount} of {courses.length} Courses Complete
+            </p>
+            <ProgressBar value={doneCount / courses.length} track={program.track} fill="bg-white" height="h-3" />
+          </div>
+        </div>
+      </button>
+
+      {/* After an expanded skill there is a 40px gap; after a collapsed one, the normal 16px card gap. */}
+      {open && (
+        <div className="mt-6 flex flex-col">
+          {shown.map(({ skill, visible }, i) => (
+            <SkillGroup
+              key={skill.id}
+              skill={skill}
+              visible={visible}
+              completed={completed}
+              open={!collapsed.includes(skill.id)}
+              onToggle={() => setCollapsed((c) => (c.includes(skill.id) ? c.filter((id) => id !== skill.id) : [...c, skill.id]))}
+              className={i === 0 ? "" : collapsed.includes(shown[i - 1].skill.id) ? "mt-4" : "mt-10"}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+export default function CoursesPage() {
+  const { name, completed, profileDone, completeProfile } = useStore();
+  const [filter, setFilter] = useState<Filter>("All");
   const doneTotal = allCourses.filter((c) => completed.includes(c.id)).length;
 
   return (
     <>
       <Header />
-      <main className="mx-auto flex w-full max-w-[906px] flex-col px-4 pb-20 pt-8 md:pt-[71px] xl:px-0">
-        <div className="flex flex-col gap-4 md:gap-6">
-          <h1 className="font-display text-[20px] leading-[1.2] text-black md:text-[32px]">Welcome, {name}</h1>
-          <p className="text-[16px] leading-6 text-[#5b6671] md:text-[20px] md:leading-[1.2] md:font-[family-name:var(--font-lato)]">
-            Please complete the following training courses
-          </p>
-        </div>
+      <main className="w-full pb-20 md:px-8 md:pt-8">
+        <WelcomeHero name={name} />
+        <Checklist doneTotal={doneTotal} total={allCourses.length} profileDone={profileDone} onEditProfile={completeProfile} />
 
-        {/* Learning journey banner */}
-        <section
-          className="relative mt-10 overflow-hidden rounded-[12px] p-6 shadow-[0_4px_8px_rgba(24,30,36,0.04)] md:mt-[60px] md:p-8"
-          style={{ backgroundImage: "linear-gradient(175.9deg, #00509c 37.3%, #3c87cf 80.8%)" }}
-        >
-          <div className="pointer-events-none absolute left-[72%] top-[-117px] hidden size-[372px] items-center justify-center md:flex">
-            <Img src="/assets/banner-shape.svg" className="size-[278px] rotate-[-25.82deg]" />
+        <div className="mx-auto mt-10 flex max-w-[900px] flex-col px-4 md:px-0">
+          <h2 className="font-display text-[24px] leading-[1.2] text-black [text-box:normal]">My Training</h2>
+
+          <div className="mt-6 flex gap-3" role="tablist">
+            {(["All", "Remaining", "Completed"] as Filter[]).map((f) => (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={filter === f}
+                onClick={() => setFilter(f)}
+                className={`h-10 flex-1 rounded-[8px] px-3 text-[16px] font-medium leading-[22px] transition-colors md:flex-none ${
+                  filter === f ? "bg-[#181e24] text-[#fafbfc]" : "bg-white text-[#181e24] hover:bg-[#fafbfc]"
+                }`}
+              >
+                {f}
+              </button>
+            ))}
           </div>
-          <div className="relative flex flex-col gap-6">
-            <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:justify-between">
-              <h2 className="font-display text-[20px] leading-[1.2] text-[#fafbfc] md:text-[32px]">Pre-Hire</h2>
-              <div className="flex h-5 items-center gap-4 text-[14px] font-medium tracking-[-0.28px] text-[#fafbfc]">
-                <span className="flex items-center gap-2">
-                  <ListTree size={16} /> {skills.length} Skills
-                </span>
-                <span className="h-6 w-px bg-white/40" />
-                <span className="flex items-center gap-2">
-                  <BookOpen size={16} /> {allCourses.length} Courses
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-[17px]">
-              <p className="whitespace-nowrap text-[16px] font-medium leading-[22px] text-white">
-                {doneTotal} of {allCourses.length} Courses Complete
-              </p>
-              <ProgressBar value={doneTotal / allCourses.length} track="bg-[#00509c]" fill="bg-white" height="h-3" />
-            </div>
+
+          <div className="mt-6 flex flex-col gap-6">
+            {programs.map((p) => (
+              <ProgramSection key={p.id} program={p} filter={filter} completed={completed} />
+            ))}
           </div>
-        </section>
-
-        {/* Filters */}
-        <div className="mt-8 flex gap-3 md:mt-10" role="tablist">
-          {(["All", "Remaining", "Completed"] as Filter[]).map((f) => (
-            <button
-              key={f}
-              role="tab"
-              aria-selected={filter === f}
-              onClick={() => setFilter(f)}
-              className={`h-10 flex-1 rounded-[8px] px-3 text-[16px] font-medium leading-[22px] transition-colors md:flex-none ${
-                filter === f ? "bg-[#181e24] text-[#fafbfc]" : "bg-white text-[#181e24] hover:bg-[#fafbfc]"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-
-        {/* After an expanded skill there is a 40px gap; after a collapsed one, the normal 16px card gap. */}
-        <div className="mt-4 flex flex-col md:mt-6">
-          {shownSkills.map((s, i) => (
-            <SkillGroup
-              key={s.id}
-              skill={s}
-              filter={filter}
-              completed={completed}
-              open={!collapsed.includes(s.id)}
-              onToggle={() => setCollapsed((c) => (c.includes(s.id) ? c.filter((id) => id !== s.id) : [...c, s.id]))}
-              className={i === 0 ? "" : collapsed.includes(shownSkills[i - 1].id) ? "mt-4" : "mt-10"}
-            />
-          ))}
         </div>
       </main>
     </>
