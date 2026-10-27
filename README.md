@@ -11,7 +11,7 @@ A clickable prototype of the 4insite pre-hire training experience, built from th
 5. **Quiz** — 3 questions, not graded. A wrong pick is marked, and the user keeps trying until they choose the right answer. Finishing earns credit for the course.
 6. **Employee profile** — open it from **Edit Profile** on the course list. The **Training** tab goes back to the courses.
 
-Progress is saved in the browser. Use the avatar menu → **Restart demo** to reset.
+Progress is saved in the browser. The avatar menu has **My Profile** and **Logout**. Logging out also resets the demo.
 
 ## Run locally
 

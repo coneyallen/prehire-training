@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ChevronDown, Languages, RotateCcw } from "lucide-react";
+import { ArrowLeft, ChevronDown, Languages, LogOut, User } from "lucide-react";
 import { DevicePhoneMobileIcon, RocketLaunchIcon } from "@heroicons/react/24/solid";
 import { languages, type PlaceholderIcon } from "@/lib/data";
 import { useStore } from "@/lib/store";
@@ -124,19 +124,28 @@ function LanguageMenu() {
 function AvatarMenu() {
   const { resetDemo } = useStore();
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const close = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
+
+  const item = "flex items-center gap-2 px-4 py-2 text-[14px] text-[#181e24] hover:bg-[#f0f3f5]";
   return (
-    <div className="relative">
-      <button onClick={() => setOpen((o) => !o)} aria-label="Account menu" className="block rounded-full">
+    <div ref={ref} className="relative">
+      <button onClick={() => setOpen((o) => !o)} aria-label="Account menu" aria-haspopup="menu" aria-expanded={open} className="block rounded-full">
         <Img src="/assets/profile/photo.png" className="size-9 rounded-full object-cover" />
       </button>
       {open && (
-        <div className="absolute right-0 z-20 mt-2 w-48 rounded-[8px] border border-[#f0f3f5] bg-white py-1 shadow-lg">
-          <Link
-            href="/"
-            onClick={resetDemo}
-            className="flex items-center gap-2 px-4 py-2 text-[14px] text-[#181e24] hover:bg-[#f0f3f5]"
-          >
-            <RotateCcw size={14} /> Restart demo
+        <div role="menu" className="absolute right-0 z-20 mt-2 w-48 rounded-[8px] border border-[#f0f3f5] bg-white py-1 shadow-lg">
+          <Link href="/profile" role="menuitem" onClick={() => setOpen(false)} className={item}>
+            <User size={14} /> My Profile
+          </Link>
+          {/* Logging out also restarts the demo, so the next visitor starts fresh */}
+          <Link href="/" role="menuitem" onClick={resetDemo} className={item}>
+            <LogOut size={14} /> Logout
           </Link>
         </div>
       )}

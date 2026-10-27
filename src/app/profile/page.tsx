@@ -94,7 +94,7 @@ function ProfileHeader({ name, language }: { name: string; language: string }) {
           <div className="flex flex-col gap-4 text-[16px] font-medium leading-[22px] text-[#5b6671]">
             <div className="flex h-[11px] items-center gap-2">
               <CalendarIcon className="size-4" />
-              <p>Joined January 1, 2024</p>
+              <p>Start Date: November 3, 2026</p>
             </div>
             <div className="flex h-[11px] items-center gap-2">
               <Languages className="size-4" strokeWidth={2.25} />
