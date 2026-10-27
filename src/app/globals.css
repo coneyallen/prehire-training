@@ -3,8 +3,6 @@
 /* Login page switches from the mobile/tablet layout to the desktop split at 1100px */
 @theme {
   --breakpoint-desktop: 68.75rem;
-  /* Course list: below 964px the welcome hero is no wider than the checklist, so it runs edge to edge */
-  --breakpoint-hero: 60.25rem;
 }
 
 @theme inline {
