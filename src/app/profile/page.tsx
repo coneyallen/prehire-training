@@ -88,7 +88,7 @@ function ProfileHeader({ name, language }: { name: string; language: string }) {
             <div className="flex flex-wrap items-center gap-[6px] text-[16px] font-medium leading-[22px] text-[#181e24]">
               <p>Custodian</p>
               <span aria-hidden className="size-[3px] rounded-full bg-[#181e24]" />
-              <p>Delta, LGA-LaGuardia, NY</p>
+              <p>Acme Corp</p>
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[16px] font-medium leading-[22px] text-[#5b6671]">

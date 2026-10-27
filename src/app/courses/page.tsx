@@ -25,7 +25,7 @@ function WelcomeHero({ name }: { name: string }) {
   const details = [
     { icon: CalendarDays, label: "Start Date:", value: "Monday, November 3" },
     { icon: User, label: "Position:", value: "Custodian" },
-    { icon: Building2, label: "Site:", value: "Delta, LaGuardia NY" },
+    { icon: Building2, label: "Site:", value: "Acme Corp" },
   ];
   return (
     <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:rounded-[16px] md:px-8 md:pb-[102px] lg:h-[440px] lg:pb-0 lg:pt-[60px]">
@@ -43,7 +43,7 @@ function WelcomeHero({ name }: { name: string }) {
             {/* Line breaks match the Figma frame on desktop */}
             <p className="text-[16px] leading-[1.5] text-[rgba(255,255,255,0.92)] [text-box:normal] font-[family-name:var(--font-lato)] md:text-[19px]">
               We&apos;re excited to have you join SBM as a <span className={highlight}>Custodian</span> <b>at</b>{" "}
-              <span className={highlight}>LaGuardia, NY</span>.<br className="hidden lg:block" /> Your first day is{" "}
+              <span className={highlight}>Acme Corp</span>.<br className="hidden lg:block" /> Your first day is{" "}
               <span className={highlight}>Monday, November 3</span>. Please complete
               <br className="hidden lg:block" /> the following training so you&apos;re ready for day one!
             </p>
