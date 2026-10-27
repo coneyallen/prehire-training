@@ -146,8 +146,10 @@ function CourseCard({ course, done }: { course: Course; done: boolean }) {
       className="group flex h-[116px] items-center gap-4 overflow-hidden rounded-[12px] border border-white bg-white pr-4 transition-shadow hover:shadow-[0_4px_16px_rgba(24,30,36,0.08)] md:gap-6 md:pr-8"
     >
       <div className="relative h-full w-[116px] shrink-0 overflow-hidden md:w-[208px]">
-        {course.placeholder ? (
-          <Placeholder icon={course.placeholder} className="size-full" />
+        {course.illustration ? (
+          <div className="size-full bg-[#f3f2fb] p-2">
+            <Img src={course.thumbnail} className="size-full object-contain transition-transform duration-300 group-hover:scale-105" />
+          </div>
         ) : (
           <Img src={course.thumbnail} className="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
         )}

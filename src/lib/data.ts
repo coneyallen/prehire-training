@@ -19,7 +19,7 @@ export type Course = {
   duration: string;
   due: string;
   thumbnail: string;
-  placeholder?: PlaceholderIcon; // shown instead of the thumbnail when set
+  illustration?: boolean; // thumbnail is a spot illustration: show it whole on a light panel
   description: string;
 };
 
@@ -179,13 +179,14 @@ const preHireSkills: Skill[] = [
 ];
 
 // Demo content for the second program (the Figma frame repeats the Pre-Hire courses as placeholders).
-const course = (id: string, title: string, placeholder: PlaceholderIcon, description: string): Course => ({
+// Thumbnails are unDraw illustrations (see public/assets/illustrations/LICENSE.md).
+const course = (id: string, title: string, description: string): Course => ({
   id,
   title,
   duration: "15:32",
   due,
-  thumbnail: "",
-  placeholder,
+  thumbnail: `/assets/illustrations/${id}.svg`,
+  illustration: true,
   description,
 });
 
@@ -198,11 +199,11 @@ const introSkills: Skill[] = [
     tint: "bg-[rgba(200,197,246,0.25)]",
     bar: "bg-[#4c469c]",
     courses: [
-      course("logging-in", "Logging In to 4insite", "log-in", "Learn how to sign in to the 4insite app and keep your account secure."),
-      course("navigating-the-app", "Navigating the App", "layout", "Take a quick tour of the 4insite home screen and where to find what you need."),
-      course("your-profile", "Setting Up Your Profile", "user", "Add your photo and details so your team knows who you are."),
-      course("notifications", "Notifications and Messages", "bell", "Learn how 4insite keeps you up to date on schedules, tasks and announcements."),
-      course("getting-help", "Getting Help in 4insite", "help", "Find answers fast and learn who to contact when you need support."),
+      course("logging-in", "Logging In to 4insite", "Learn how to sign in to the 4insite app and keep your account secure."),
+      course("navigating-the-app", "Navigating the App", "Take a quick tour of the 4insite home screen and where to find what you need."),
+      course("your-profile", "Setting Up Your Profile", "Add your photo and details so your team knows who you are."),
+      course("notifications", "Notifications and Messages", "Learn how 4insite keeps you up to date on schedules, tasks and announcements."),
+      course("getting-help", "Getting Help in 4insite", "Find answers fast and learn who to contact when you need support."),
     ],
   },
   {
@@ -213,11 +214,11 @@ const introSkills: Skill[] = [
     tint: "bg-[rgba(200,197,246,0.25)]",
     bar: "bg-[#0084ff]",
     courses: [
-      course("clocking-in", "Clocking In and Out", "clock", "Learn how to clock in and out of your shift using 4insite."),
-      course("your-schedule", "Viewing Your Schedule", "calendar", "See your upcoming shifts and where you'll be working."),
-      course("completing-inspections", "Completing Inspections", "clipboard", "Learn how to complete and submit an area inspection in 4insite."),
-      course("reporting-issues", "Reporting Issues", "alert", "Report a hazard, damage or supply need right from your phone."),
-      course("time-off", "Requesting Time Off", "plane", "Learn how to request time off and check its status."),
+      course("clocking-in", "Clocking In and Out", "Learn how to clock in and out of your shift using 4insite."),
+      course("your-schedule", "Viewing Your Schedule", "See your upcoming shifts and where you'll be working."),
+      course("completing-inspections", "Completing Inspections", "Learn how to complete and submit an area inspection in 4insite."),
+      course("reporting-issues", "Reporting Issues", "Report a hazard, damage or supply need right from your phone."),
+      course("time-off", "Requesting Time Off", "Learn how to request time off and check its status."),
     ],
   },
 ];

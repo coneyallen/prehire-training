@@ -4,9 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Captions, Check, Lock, Maximize, MessagesSquare, Play, RotateCcw, Volume2 } from "lucide-react";
-import { Button, Header, Img, Placeholder } from "@/components/ui";
+import { Button, Header, Img } from "@/components/ui";
 import { QuizModal } from "@/components/QuizModal";
-import { findCourse, type Course, type PlaceholderIcon, type Skill } from "@/lib/data";
+import { findCourse, type Course, type Skill } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
 // Spacing follows the Figma frames "Video Web" (1440) and "Video Mobile" (402).
@@ -14,7 +14,7 @@ import { useStore } from "@/lib/store";
 const toSeconds = (d: string) => d.split(":").reduce((acc, n) => acc * 60 + Number(n), 0);
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
 
-function Player({ thumbnail, placeholder, duration, onEnded }: { thumbnail: string; placeholder?: PlaceholderIcon; duration: string; onEnded: () => void }) {
+function Player({ thumbnail, illustration, duration, onEnded }: { thumbnail: string; illustration?: boolean; duration: string; onEnded: () => void }) {
   const total = toSeconds(duration);
   const [progress, setProgress] = useState(0); // 0..1
   const [cc, setCc] = useState(true);
@@ -33,8 +33,10 @@ function Player({ thumbnail, placeholder, duration, onEnded }: { thumbnail: stri
   return (
     <div className="overflow-hidden bg-[#e8e8e8] md:rounded-t-[4px]">
       <button onClick={play} className="group relative block aspect-[952/520] w-full" aria-label="Play">
-        {placeholder ? (
-          <Placeholder icon={placeholder} className="absolute inset-0 size-full [&>svg]:hidden" />
+        {illustration ? (
+          <div className="absolute inset-0 bg-[#f3f2fb] p-[8%]">
+            <Img src={thumbnail} className="size-full object-contain" />
+          </div>
         ) : (
           <Img src={thumbnail} className="absolute inset-0 size-full object-cover" />
         )}
@@ -206,7 +208,7 @@ export default function CourseView({ id }: { id: string }) {
         <div className="grid gap-[25px] md:mt-6 lg:grid-cols-[minmax(0,952px)_400px] lg:gap-6">
           <div className="flex flex-col gap-6 md:gap-5">
             {/* Phones: the video runs edge to edge directly under the header */}
-            <Player key={course.id} thumbnail={course.thumbnail} placeholder={course.placeholder} duration={course.duration} onEnded={() => setWatched(true)} />
+            <Player key={course.id} thumbnail={course.thumbnail} illustration={course.illustration} duration={course.duration} onEnded={() => setWatched(true)} />
 
             <div className="flex flex-col gap-[25px] px-4 md:gap-[19px] md:px-0">
               <div className="md:hidden">
