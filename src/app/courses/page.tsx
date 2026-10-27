@@ -62,7 +62,7 @@ function WelcomeHero({ name }: { name: string }) {
       <Img
         src="/assets/team.png"
         alt="SBM team members"
-        className="pointer-events-none absolute bottom-0 right-[max(12px,calc(50vw-708px))] hidden aspect-[594/395] w-[clamp(380px,calc(51.4vw-146px),594px)] translate-y-[7.85%] object-cover lg:block"
+        className="pointer-events-none absolute bottom-0 right-[max(12px,calc(50vw-708px))] hidden aspect-[594/395] w-[clamp(460px,calc(32.2vw+130px),594px)] translate-y-[7.85%] object-cover lg:block"
       />
     </section>
   );
