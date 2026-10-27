@@ -2,8 +2,24 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Languages, RotateCcw } from "lucide-react";
-import { languages } from "@/lib/data";
+import {
+  Bell,
+  CalendarDays,
+  ChevronDown,
+  ClipboardCheck,
+  Clock,
+  Languages,
+  LayoutGrid,
+  LifeBuoy,
+  LogIn,
+  Plane,
+  Rocket,
+  RotateCcw,
+  Smartphone,
+  TriangleAlert,
+  UserRound,
+} from "lucide-react";
+import { languages, type PlaceholderIcon } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
 /** Image that collapses to a neutral block if the file is missing. */
@@ -19,6 +35,31 @@ export function Img({ src, alt = "", className = "" }: { src: string; alt?: stri
   if (failed) return <div aria-hidden className={`${className} bg-black/5`} />;
   // eslint-disable-next-line @next/next/no-img-element
   return <img ref={ref} src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
+}
+
+const placeholderIcons = {
+  rocket: Rocket,
+  smartphone: Smartphone,
+  "log-in": LogIn,
+  layout: LayoutGrid,
+  user: UserRound,
+  bell: Bell,
+  help: LifeBuoy,
+  clock: Clock,
+  calendar: CalendarDays,
+  clipboard: ClipboardCheck,
+  alert: TriangleAlert,
+  plane: Plane,
+};
+
+/** Placeholder art: a light purple panel with an icon, used until real images exist. */
+export function Placeholder({ icon, className = "", iconSize = 32 }: { icon: PlaceholderIcon; className?: string; iconSize?: number }) {
+  const Icon = placeholderIcons[icon];
+  return (
+    <div aria-hidden className={`flex items-center justify-center bg-[#e7e5f7] text-[#4c469c] ${className}`}>
+      <Icon size={iconSize} strokeWidth={1.75} />
+    </div>
+  );
 }
 
 /** 4insite logo, built from the three layers in the Figma file. */

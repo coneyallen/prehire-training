@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, BookOpen, Building2, CalendarDays, Check, ChevronDown, CircleCheck, Clock, ListTree, User } from "lucide-react";
-import { Header, Img, ProgressBar } from "@/components/ui";
+import { Header, Img, Placeholder, ProgressBar } from "@/components/ui";
 import { allCourses, programs, type Course, type Program, type Skill } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
@@ -87,7 +87,7 @@ function ProgressDonut({ value }: { value: number }) {
         cy="11"
         r={r}
         fill="none"
-        stroke="#00cc70"
+        stroke="#0084ff"
         strokeWidth="3"
         strokeLinecap="round"
         strokeDasharray={`${value * c} ${c}`}
@@ -138,7 +138,11 @@ function CourseCard({ course, done }: { course: Course; done: boolean }) {
       className="group flex h-[116px] items-center gap-4 overflow-hidden rounded-[12px] border border-white bg-white pr-4 transition-shadow hover:shadow-[0_4px_16px_rgba(24,30,36,0.08)] md:gap-6 md:pr-8"
     >
       <div className="relative h-full w-[116px] shrink-0 overflow-hidden md:w-[208px]">
-        <Img src={course.thumbnail} className="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+        {course.placeholder ? (
+          <Placeholder icon={course.placeholder} className="size-full" />
+        ) : (
+          <Img src={course.thumbnail} className="size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+        )}
         <span className="absolute bottom-2 right-2 rounded-[4px] bg-[rgba(24,30,36,0.75)] px-1 text-[14px] leading-[22px] text-[#fafbfc]">
           {course.duration}
         </span>
@@ -177,7 +181,11 @@ function SkillGroup({
         aria-expanded={open}
         className={`flex items-center gap-4 rounded-[12px] px-4 py-6 text-left md:gap-6 md:p-6 ${skill.tint}`}
       >
-        <Img src={skill.icon} className="size-10 shrink-0 rounded-full border border-[#0084ff] object-cover" />
+        {skill.placeholder ? (
+          <Placeholder icon={skill.placeholder} iconSize={20} className="size-10 shrink-0 rounded-full border border-[#4c469c]" />
+        ) : (
+          <Img src={skill.icon} className="size-10 shrink-0 rounded-full border border-[#0084ff] object-cover" />
+        )}
         <div className="flex min-w-0 flex-1 flex-col gap-3 md:gap-4">
           <h3 className="text-[16px] font-medium leading-[22px] text-[#181e24] md:font-display md:font-black md:text-[20px] md:leading-[1.2]">
             {skill.title}
