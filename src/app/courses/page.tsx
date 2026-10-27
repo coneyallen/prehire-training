@@ -125,13 +125,13 @@ function Checklist({ doneTotal, total }: { doneTotal: number; total: number }) {
           <p className="text-[14px] font-medium leading-5 text-[#171c24]">Update your profile</p>
           <p className="text-[14px] leading-[22px] text-[#5b6671] md:text-[12px] md:leading-[18px]">Add your Profile pic, about me and more</p>
           {/* Phones: the link sits under the text */}
-          <button className="flex h-[14px] w-fit items-center gap-1 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] md:hidden">
+          <Link href="/profile" className="flex h-[14px] w-fit items-center gap-1 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] md:hidden">
             Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
-          </button>
+          </Link>
         </div>
-        <button className="hidden h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff] md:flex">
+        <Link href="/profile" className="hidden h-12 shrink-0 items-center gap-1 rounded-[4px] px-3 text-[16px] font-medium tracking-[-0.32px] text-[#0084ff] hover:bg-[#f0f7ff] md:flex">
           Edit Profile <ArrowRight size={16} strokeWidth={2.5} />
-        </button>
+        </Link>
       </div>
     </section>
   );

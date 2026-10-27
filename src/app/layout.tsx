@@ -3,7 +3,7 @@ import { Lato, Roboto } from "next/font/google";
 import { StoreProvider } from "@/lib/store";
 import "./globals.css";
 
-const lato = Lato({ variable: "--font-lato", subsets: ["latin"], weight: ["400", "900"] });
+const lato = Lato({ variable: "--font-lato", subsets: ["latin"], weight: ["400", "700", "900"] });
 const roboto = Roboto({ variable: "--font-roboto", subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {

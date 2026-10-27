@@ -9,6 +9,7 @@ A clickable prototype of the 4insite pre-hire training experience, built from th
 3. **Course list** — a welcome banner with start details, a "Before your Start Date" checklist (profile already done, training progress shown as a donut), and My Training: two programs (Pre-Hire and Introduction to 4insite) with collapsible skills and All / Remaining / Completed filters.
 4. **Course video** — press play to jump to the end of the video and unlock the quiz.
 5. **Quiz** — 3 questions, not graded. A wrong pick is marked, and the user keeps trying until they choose the right answer. Finishing earns credit for the course.
+6. **Employee profile** — open it from **Edit Profile** on the course list. The **Training** tab goes back to the courses.
 
 Progress is saved in the browser. Use the avatar menu → **Restart demo** to reset.
 
