@@ -29,8 +29,9 @@ function WelcomeHero({ name }: { name: string }) {
   ];
   return (
     <section className="relative overflow-hidden bg-[#004383] px-4 pb-[104px] pt-10 md:pb-[102px] hero:rounded-[16px] hero:px-8 lg:h-[440px] lg:pb-0 lg:pt-[60px]">
-      {/* Same size on every screen; fainter on phones so the text over it stays readable */}
-      <div className="pointer-events-none absolute right-[-112px] top-[-92px] flex size-[570px] items-center justify-center opacity-50 md:opacity-100">
+      {/* Phones: a smaller shape on the right, faint so the text over it stays readable */}
+      <Img src="/assets/hero-shape.svg" className="pointer-events-none absolute right-[-40px] top-[141px] size-[300px] rotate-[15deg] opacity-50 md:hidden" />
+      <div className="pointer-events-none absolute right-[-112px] top-[-92px] hidden size-[570px] items-center justify-center md:flex">
         <Img src="/assets/hero-shape.svg" className="size-[465px] rotate-[15deg]" />
       </div>
       <div className="relative mx-auto h-full max-w-[900px]">
