@@ -37,6 +37,7 @@ export type Program = {
   id: string;
   title: string;
   banner: string; // CSS background for the program banner
+  mobileBanner?: string; // phones use a different gradient when set
   track: string; // progress bar track
   skills: Skill[];
 };
@@ -228,6 +229,7 @@ export const programs: Program[] = [
     id: "pre-hire",
     title: "Pre-Hire",
     banner: "linear-gradient(146.4deg, #181e24 9.6%, #006acd 59.6%)",
+    mobileBanner: "linear-gradient(167.4deg, #00509c 37.3%, #3c87cf 80.8%)",
     track: "bg-[#00509c]",
     skills: preHireSkills,
   },
@@ -235,7 +237,7 @@ export const programs: Program[] = [
     id: "intro-4insite",
     title: "Introduction to 4insite",
     banner: "linear-gradient(175.9deg, #4c469c 37.3%, #635cbb 80.8%)",
-    track: "bg-[#3d3888]",
+    track: "bg-[#4c469c]",
     skills: introSkills,
   },
 ];

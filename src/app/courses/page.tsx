@@ -215,12 +215,10 @@ function ProgramSection({
   program,
   filter,
   completed,
-  mobileFilters,
 }: {
   program: Program;
   filter: Filter;
   completed: string[];
-  mobileFilters?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(true);
   const [collapsed, setCollapsed] = useState<string[]>([]);
@@ -233,8 +231,8 @@ function ProgramSection({
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="relative overflow-hidden rounded-[12px] p-6 text-left shadow-[0_4px_8px_rgba(24,30,36,0.04)] md:p-8"
-        style={{ backgroundImage: program.banner }}
+        className="relative overflow-hidden rounded-[12px] p-6 text-left shadow-[0_4px_8px_rgba(24,30,36,0.04)] [background-image:var(--banner-mobile)] md:p-8 md:[background-image:var(--banner)]"
+        style={{ "--banner": program.banner, "--banner-mobile": program.mobileBanner ?? program.banner } as React.CSSProperties}
       >
         <div className="relative flex flex-col gap-6">
           <div className="flex flex-col items-start gap-3 md:flex-row md:justify-between">
@@ -254,13 +252,10 @@ function ProgramSection({
             <p className="whitespace-nowrap text-[16px] font-medium leading-[22px] text-white">
               {doneCount} of {courses.length} Courses Complete
             </p>
-            <ProgressBar value={doneCount / courses.length} track={program.track} fill="bg-white" height="h-3" />
+            <ProgressBar value={doneCount / courses.length} track={program.track} fill="bg-white" height="h-3" radius="rounded-[4px] md:rounded-full" />
           </div>
         </div>
       </button>
-
-      {/* Phones: the filters sit under the first program banner, per the mobile design */}
-      {mobileFilters && <div className="mt-8 md:hidden">{mobileFilters}</div>}
 
       {/* After an expanded skill there is a 40px gap; after a collapsed one, the normal 16px card gap. */}
       {open && shown.length > 0 && (
@@ -312,14 +307,13 @@ export default function CoursesPage() {
         <WelcomeHero name={name} />
         <Checklist doneTotal={doneTotal} total={allCourses.length} />
 
-        <div className="mx-auto mt-4 flex max-w-[900px] flex-col px-4 md:mt-10 md:px-0">
-          {/* Phones skip the heading and show the filters under the first program banner */}
-          <h2 className="hidden font-display text-[24px] leading-[1.2] text-black [text-box:normal] md:block">My Training</h2>
-          <div className="mt-6 hidden md:block">{filters}</div>
+        <div className="mx-auto mt-8 flex max-w-[900px] flex-col px-4 md:mt-[60px] md:px-0">
+          <h2 className="font-display text-[24px] leading-[1.2] text-[#171c24] [text-box:normal] md:text-[32px] md:[text-box:trim-both_cap_alphabetic]">My Training</h2>
+          <div className="mt-4 md:mt-8">{filters}</div>
 
-          <div className="flex flex-col gap-6 md:mt-6">
-            {programs.map((p, i) => (
-              <ProgramSection key={p.id} program={p} filter={filter} completed={completed} mobileFilters={i === 0 ? filters : undefined} />
+          <div className="mt-4 flex flex-col gap-6 md:mt-8">
+            {programs.map((p) => (
+              <ProgramSection key={p.id} program={p} filter={filter} completed={completed} />
             ))}
           </div>
         </div>

@@ -180,10 +180,22 @@ export function Header({
   );
 }
 
-export function ProgressBar({ value, track, fill, height = "h-2" }: { value: number; track: string; fill: string; height?: string }) {
+export function ProgressBar({
+  value,
+  track,
+  fill,
+  height = "h-2",
+  radius = "rounded-[8px]",
+}: {
+  value: number;
+  track: string;
+  fill: string;
+  height?: string;
+  radius?: string;
+}) {
   return (
-    <div className={`relative ${height} min-w-0 grow overflow-hidden rounded-[8px] ${track}`}>
-      <div className={`absolute inset-y-0 left-0 rounded-[8px] ${fill} transition-[width] duration-500`} style={{ width: `${value * 100}%` }} />
+    <div className={`relative ${height} min-w-0 grow overflow-hidden ${radius} ${track}`}>
+      <div className={`absolute inset-y-0 left-0 ${fill} transition-[width] duration-500`} style={{ width: `${value * 100}%` }} />
     </div>
   );
 }
